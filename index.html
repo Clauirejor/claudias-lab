@@ -93,7 +93,45 @@ html,body{background:var(--negro);color:var(--texto);font-family:'Nunito',sans-s
 @keyframes popIn{0%{transform:scale(.5);opacity:0}70%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
 @keyframes bnc{0%{transform:translateY(0)}100%{transform:translateY(-9px)}}
 
-/* ACTIVACION */
+/* RUTINA */
+.rut-item{background:rgba(255,255,255,.03);border:2px solid var(--borde);border-radius:16px;
+  margin-bottom:12px;overflow:hidden;transition:border-color .3s}
+.rut-item.done{border-color:var(--verde);opacity:.72}
+.rut-header{display:flex;align-items:center;gap:12px;padding:13px 14px;cursor:pointer}
+.rut-num{font-family:'Creepster',cursive;font-size:1.5rem;color:var(--am);min-width:32px;text-align:center;line-height:1}
+.rut-em{font-size:2rem;min-width:42px;text-align:center}
+.rut-info{flex:1}
+.rut-info h3{font-size:.96rem;font-weight:900;margin-bottom:2px}
+.rut-info .rut-rep{font-size:.78rem;color:var(--azul);font-weight:700;margin-bottom:1px}
+.rut-info p{font-size:.8rem;color:#aaa;line-height:1.4}
+.rut-ck{width:38px;height:38px;border-radius:50%;border:2px solid var(--borde);background:transparent;
+  cursor:pointer;font-size:1.2rem;display:flex;align-items:center;justify-content:center;
+  transition:all .2s;flex-shrink:0;font-family:'Nunito',sans-serif}
+.rut-ck:hover{border-color:var(--verde);background:rgba(6,214,160,.15)}
+.rut-item.done .rut-ck{background:var(--verde);border-color:var(--verde);color:#000}
+/* Panel expandible con SVG + instrucción detallada */
+.rut-panel{display:none;padding:0 14px 14px;border-top:1px solid var(--borde);background:rgba(0,0,0,.15)}
+.rut-item.abierto .rut-panel{display:flex;gap:14px;align-items:flex-start;padding-top:12px}
+.rut-panel-svg{flex-shrink:0;width:88px;height:88px}
+.rut-panel-txt .rut-p-como{font-size:.9rem;font-weight:900;color:var(--verde);margin-bottom:5px}
+.rut-panel-txt .rut-p-pasos{font-size:.86rem;color:var(--texto);line-height:1.65}
+.rut-panel-txt .rut-p-truco{font-size:.76rem;color:var(--am);font-style:italic;margin-top:5px;line-height:1.4}
+.rut-expand-lbl{font-size:.72rem;color:#666;margin-left:auto;padding-right:4px;white-space:nowrap}
+
+/* PRAXIAS CSS (se puede mantener por compatibilidad) */
+.pg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:500px){.pg{grid-template-columns:1fr}}
+.pc{background:rgba(255,255,255,.04);border:2px solid var(--borde);border-radius:14px;
+  padding:12px;text-align:center;cursor:pointer;transition:all .25s}
+.pc:hover{border-color:rgba(255,255,255,.2)}
+.pc.activa{border-color:var(--verde);background:rgba(6,214,160,.07)}
+.pce{font-size:2.5rem;display:block;margin-bottom:4px}
+.pc.activa .pce{animation:bnc .6s ease-in-out infinite alternate}
+.pc h3{font-size:.88rem;font-weight:900;margin-bottom:2px}
+.pc p{font-size:.76rem;color:#aaa;line-height:1.4}
+.pc-cnt{font-family:'Share Tech Mono',monospace;font-size:1.2rem;color:var(--verde);margin:2px 0}
+
+/* ACTIVACION CSS (se mantiene por compatibilidad) */
 .act-pw{background:rgba(255,255,255,.06);border-radius:8px;height:14px;overflow:hidden;margin-bottom:5px}
 .act-pb{height:100%;background:linear-gradient(90deg,var(--verde),var(--am));border-radius:8px;transition:width .45s ease;box-shadow:0 0 8px rgba(6,214,160,.5)}
 .act-pl{text-align:center;font-size:.77rem;color:#aaa;margin-bottom:10px}
@@ -146,6 +184,17 @@ html,body{background:var(--negro);color:var(--texto);font-family:'Nunito',sans-s
 .sb:hover{transform:scale(1.1);border-color:var(--verde);background:rgba(6,214,160,.18)}
 .sb:active{transform:scale(.88)}
 .sb.ac{border-color:var(--verde);background:rgba(6,214,160,.22);box-shadow:0 0 14px rgba(6,214,160,.4);transform:scale(1.07)}
+
+/* GUIA ARTICULACION */
+.fon-guia-wrap{margin:10px auto 4px;max-width:420px;background:rgba(255,255,255,.04);
+  border:2px solid rgba(6,214,160,.2);border-radius:16px;padding:14px;display:flex;
+  gap:14px;align-items:center;min-height:90px;transition:all .35s}
+.fon-guia-wrap.vacio{display:none}
+.fon-guia-svg{flex-shrink:0;width:80px;height:80px}
+.fon-guia-txt{flex:1}
+.fon-guia-txt .fon-g-tit{font-size:.82rem;font-weight:900;color:var(--verde);margin-bottom:4px;letter-spacing:.5px}
+.fon-guia-txt .fon-g-paso{font-size:.88rem;color:var(--texto);line-height:1.55;margin-bottom:4px}
+.fon-guia-txt .fon-g-truco{font-size:.76rem;color:var(--am);font-style:italic;line-height:1.4}
 
 /* FONEMAS BOMBILLAS */
 .fon-bomb-wrap{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;padding:8px 4px;margin-bottom:2px}
@@ -305,8 +354,7 @@ html,body{background:var(--negro);color:var(--texto);font-family:'Nunito',sans-s
 
 <div class="tw">
   <div class="tnav">
-    <button class="tb on" onclick="vTab('act',this)">🧠 Activación</button>
-    <button class="tb"    onclick="vTab('prx',this)">🗣️ Praxias</button>
+    <button class="tb on" onclick="vTab('rut',this)">💪 Rutina</button>
     <button class="tb"    onclick="vTab('fon',this)">🔤 Fonemas</button>
     <button class="tb"    onclick="vTab('seq',this)">🧩 Secuencias</button>
     <button class="tb"    onclick="vTab('mot',this)">🖐️ Motricidad</button>
@@ -316,24 +364,15 @@ html,body{background:var(--negro);color:var(--texto);font-family:'Nunito',sans-s
     <button class="tb"    onclick="vTab('imi',this)">🎭 Imitación</button>
   </div>
 
-  <!-- ACTIVACION -->
-  <div class="tp on" id="tp-act">
-    <div class="tit">🧠 Calentamiento del Cerebro</div>
-    <div class="desc">Haz cada ejercicio y pulsa ✅. ¡Completa todos para rellenar la barra de Eleven!</div>
-    <div class="act-pw"><div class="act-pb" id="act-bar" style="width:0%"></div></div>
-    <div class="act-pl" id="act-lbl">0 de 6 ejercicios completados</div>
-    <div class="act-list" id="act-list"></div>
-    <div class="res" id="act-res"></div>
-    <div class="flex"><button class="btn br" onclick="resetAct()">🔄 Nuevos ejercicios</button></div>
-  </div>
-
-  <!-- PRAXIAS -->
-  <div class="tp" id="tp-prx">
-    <div class="tit">🗣️ Praxias Bucofaciales</div>
-    <div class="desc">¡Activa el portal del Mundo del Revés con tu boca! Haz cada ejercicio y pulsa ¡Hecho!</div>
-    <div class="pg" id="pg"></div>
-    <div class="res" id="prx-res"></div>
-    <div class="flex"><button class="btn bp" onclick="shufflePrx()">🔀 Cambiar ejercicios</button></div>
+  <!-- RUTINA DIARIA -->
+  <div class="tp on" id="tp-rut">
+    <div class="tit">💪 Rutina Diaria de Claudia</div>
+    <div class="desc">Estos son los ejercicios de hoy. Hazlos en orden y pulsa ✅ cuando termines cada uno. ¡El portal se abre cuando acabes todos!</div>
+    <div class="act-pw"><div class="act-pb" id="rut-bar" style="width:0%"></div></div>
+    <div class="act-pl" id="rut-lbl">0 de 8 ejercicios completados</div>
+    <div id="rut-list"></div>
+    <div class="res" id="rut-res"></div>
+    <div class="flex"><button class="btn br" onclick="resetRut()">🔄 Reiniciar rutina</button></div>
   </div>
 
   <!-- FONEMAS -->
@@ -350,6 +389,8 @@ html,body{background:var(--negro);color:var(--texto);font-family:'Nunito',sans-s
     <div class="ftip" id="ftip">👆 Pulsa una sílaba para escucharla</div>
     <div class="sgrid" id="fsil"></div>
     <div class="fbig" id="fbig" onclick="playF()">A</div>
+    <!-- GUIA DE ARTICULACION -->
+    <div id="fon-guia" class="fon-guia-wrap"></div>
     <div class="flex">
       <button class="btn bg" onclick="fonOk()">✅ ¡Lo dije!</button>
       <button class="btn bb" onclick="nextSerie()">🔀 Nueva serie</button>
@@ -568,7 +609,7 @@ function vTab(id,btn){
   document.querySelectorAll('.tb').forEach(function(b){b.classList.remove('on');});
   document.getElementById('tp-'+id).classList.add('on');btn.classList.add('on');
   if(!tinit[id]){tinit[id]=true;
-    var fn={prx:initPrx,fon:initFon,seq:newSeq,mot:newDots,maz:newMaz,
+    var fn={fon:initFon,seq:newSeq,mot:newDots,maz:newMaz,
       mem:function(){initMem(2,document.querySelector('.lv'));},rit:newRit,imi:startImi};
     if(fn[id])fn[id]();
   }
@@ -646,90 +687,162 @@ function updTimer(){
   document.getElementById('tnum').textContent=m+':'+s;
 }
 
-// ACTIVACION
-var ATODOS=[
-  {em:'😮‍💨',nom:'Soplar velas',desc:'Sopla muy fuerte como si apagaras 10 velas de golpe',
-   porq:'Fortalece el control del soplo y los músculos del aire'},
-  {em:'👅',nom:'Lengua a los lados',desc:'Lengua al derecho → pausa → al izquierdo. ¡5 veces!',
-   porq:'Mejora la movilidad lateral de la lengua, clave para L, R, N'},
-  {em:'🐡',nom:'Inflar mejillas',desc:'Infla las dos mejillas a la vez. Aguanta 3 seg. ¡5 veces!',
-   porq:'Trabaja la musculatura de las mejillas y el control del aire'},
-  {em:'👏',nom:'Palmas y ritmo',desc:'3 palmadas fuertes → PAUSA → 2 palmadas suaves. ¡3 veces!',
-   porq:'Activa la coordinación motora y la memoria del ritmo'},
-  {em:'😁',nom:'Sonrisa grande',desc:'Sonríe lo más grande posible enseñando todos los dientes. ¡5 veces!',
-   porq:'Ejercita los músculos faciales y prepara la boca para los sonidos'},
-  {em:'🐍',nom:'Lengua serpiente',desc:'Saca la lengua muy despacio y métela igual de despacio. ¡5 veces!',
-   porq:'Desarrolla la precisión y el control voluntario de la lengua'},
-  {em:'🤪',nom:'Ojos y cejas',desc:'Abre los ojos muy grandes y mueve las cejas arriba y abajo. ¡5 veces!',
-   porq:'Activa la coordinación facial y la atención visual'},
-  {em:'🦁',nom:'El rugido del león',desc:'Abre la boca lo más que puedas y ruge como un gran león',
-   porq:'Relaja la mandíbula y ejercita la apertura máxima de la boca'},
-];
-var aHoy=[],aMrc=[];
-function initAct(){
-  aHoy=ATODOS.slice().sort(function(){return Math.random()-.5;}).slice(0,6);
-  aMrc=aHoy.map(function(){return false;});
-  renderAct();
-}
-function renderAct(){
-  var h='';
-  aHoy.forEach(function(a,i){
-    var d=aMrc[i];
-    h+='<div class="act-item'+(d?' done':'')+'">'
-      +'<div class="act-em">'+a.em+'</div>'
-      +'<div class="act-txt"><h3>'+a.nom+'</h3><p>'+a.desc+'</p>'
-      +'<div class="porq">💡 '+a.porq+'</div></div>'
-      +'<button class="act-ck" onclick="mrcAct('+i+')">'+(d?'✅':'○')+'</button></div>';
-  });
-  document.getElementById('act-list').innerHTML=h;
-  var hc=aMrc.filter(function(v){return v;}).length;
-  var pct=Math.round(hc/aHoy.length*100);
-  document.getElementById('act-bar').style.width=pct+'%';
-  document.getElementById('act-lbl').textContent=hc+' de '+aHoy.length+' ejercicios completados';
-  if(hc===aHoy.length){
-    setRes('act-res','ok','🎉 ¡TODOS COMPLETADOS! ¡Eres increíble Claudia! +30 energía');
-    addPts(30);sonar('win');desblq('act_ok');notif('🧠','¡Activación completa!','¡Eleven está muy orgullosa!');
-  } else setRes('act-res','','');
-}
-function mrcAct(i){if(aMrc[i])return;aMrc[i]=true;sonar('ok');addPts(5);renderAct();}
-function resetAct(){initAct();setRes('act-res','','');}
+// RUTINA DIARIA — ejercicios fijos ordenados con guía visual
+var RUT_SVG = {
+  soplo: '<svg viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="44" cy="48" rx="30" ry="24" fill="#1a0808" stroke="#e63946" stroke-width="2.5"/><path d="M22 50 Q44 60 66 50" fill="#c0392b"/><ellipse cx="44" cy="36" rx="20" ry="7" fill="#f5d5d5" opacity=".9"/><ellipse cx="44" cy="52" rx="8" ry="4" fill="#e88080" opacity=".8"/><path d="M58 42 Q68 37 76 39" stroke="#06d6a0" stroke-width="2.2" stroke-linecap="round" fill="none"/><path d="M60 48 Q70 45 78 47" stroke="#06d6a0" stroke-width="2" stroke-linecap="round" fill="none" opacity=".7"/><path d="M59 54 Q68 53 75 55" stroke="#06d6a0" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".5"/><text x="8" y="84" font-size="9" fill="#06d6a0" font-family="sans-serif">AIRE SALIENDO</text></svg>',
+  lengua_lados: '<svg viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="44" cy="44" rx="30" ry="26" fill="#1a0808" stroke="#e63946" stroke-width="2.5"/><path d="M20 46 Q44 58 68 46" fill="#c0392b"/><ellipse cx="44" cy="33" rx="22" ry="7" fill="#f5d5d5" opacity=".9"/><rect x="28" y="53" width="32" height="5" rx="2.5" fill="#f5d5d5" opacity=".6"/><ellipse cx="20" cy="44" rx="10" ry="6" fill="#e88080" stroke="#c0392b" stroke-width="1.5"/><path d="M20 38 Q10 44 20 50" stroke="#f4d35e" stroke-width="2" fill="none" stroke-dasharray="3,2"/><text x="6" y="84" font-size="9" fill="#f4d35e" font-family="sans-serif">LENGUA AL LADO</text></svg>',
+  mejillas: '<svg viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="44" cy="44" rx="38" ry="32" fill="#1a0808" stroke="#e63946" stroke-width="2.5"/><ellipse cx="44" cy="44" rx="36" ry="30" fill="none" stroke="#f77f00" stroke-width="1.5" stroke-dasharray="4,3" opacity=".5"/><path d="M14 44 Q44 38 74 44 Q44 50 14 44Z" fill="#c0392b"/><path d="M14 44 Q44 38 74 44" stroke="#f5d5d5" stroke-width="2" fill="none"/><ellipse cx="22" cy="40" rx="8" ry="8" fill="none" stroke="#f77f00" stroke-width="2"/><ellipse cx="66" cy="40" rx="8" ry="8" fill="none" stroke="#f77f00" stroke-width="2"/><text x="12" y="84" font-size="9" fill="#f77f00" font-family="sans-serif">MEJILLAS INFLADAS</text></svg>',
+  boca_abierta: '<svg viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="44" cy="44" rx="32" ry="28" fill="#1a0808" stroke="#e63946" stroke-width="2.5"/><ellipse cx="44" cy="54" rx="22" ry="16" fill="#c0392b"/><ellipse cx="44" cy="32" rx="22" ry="7" fill="#f5d5d5" opacity=".9"/><rect x="28" y="57" width="32" height="6" rx="3" fill="#f5d5d5" opacity=".6"/><ellipse cx="44" cy="52" rx="12" ry="8" fill="#e07070" opacity=".85"/><path d="M28 44 L28 58" stroke="#f5d5d5" stroke-width="2" opacity=".4"/><path d="M60 44 L60 58" stroke="#f5d5d5" stroke-width="2" opacity=".4"/><text x="8" y="84" font-size="9" fill="#e63946" font-family="sans-serif">BOCA MUY ABIERTA</text></svg>',
+  labios_beso: '<svg viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="44" cy="44" rx="30" ry="26" fill="#1a0808" stroke="#e63946" stroke-width="2.5"/><ellipse cx="44" cy="46" rx="10" ry="12" fill="#c0392b"/><ellipse cx="44" cy="32" rx="14" ry="5" fill="#f5d5d5" opacity=".9"/><ellipse cx="44" cy="58" rx="14" ry="5" fill="#f5d5d5" opacity=".6"/><ellipse cx="44" cy="46" rx="5" ry="7" fill="#e07070" opacity=".8"/><path d="M54 44 Q62 38 70 42" stroke="#f4d35e" stroke-width="1.5" fill="none" stroke-dasharray="2,2"/><text x="6" y="84" font-size="9" fill="#f4d35e" font-family="sans-serif">LABIOS REDONDOS</text></svg>',
+  labios_fuerza: '<svg viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="44" cy="44" rx="30" ry="26" fill="#1a0808" stroke="#e63946" stroke-width="2.5"/><path d="M16 44 Q44 36 72 44 Q44 52 16 44Z" fill="#c0392b"/><path d="M16 44 Q44 36 72 44" stroke="#f5d5d5" stroke-width="3" fill="none"/><path d="M16 44 Q44 52 72 44" stroke="#f5d5d5" stroke-width="1.5" fill="none" opacity=".5"/><line x1="30" y1="44" x2="58" y2="44" stroke="#e63946" stroke-width="3" stroke-dasharray="3,3"/><text x="4" y="84" font-size="9" fill="#e63946" font-family="sans-serif">LABIOS APRETADOS</text></svg>',
+  lengua_fuera: '<svg viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="44" cy="40" rx="30" ry="24" fill="#1a0808" stroke="#e63946" stroke-width="2.5"/><path d="M22 42 Q44 54 66 42" fill="#c0392b"/><ellipse cx="44" cy="30" rx="20" ry="7" fill="#f5d5d5" opacity=".9"/><rect x="28" y="50" width="32" height="5" rx="2.5" fill="#f5d5d5" opacity=".6"/><ellipse cx="44" cy="62" rx="9" ry="12" fill="#e88080" stroke="#c0392b" stroke-width="1.5"/><path d="M35 50 Q44 68 53 50" fill="#e88080"/><text x="6" y="84" font-size="9" fill="#e63946" font-family="sans-serif">LENGUA HACIA ABAJO</text></svg>',
+  lengua_paladar: '<svg viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="44" cy="44" rx="30" ry="26" fill="#1a0808" stroke="#e63946" stroke-width="2.5"/><path d="M20 46 Q44 58 68 46" fill="#c0392b"/><ellipse cx="44" cy="32" rx="20" ry="7" fill="#f5d5d5" opacity=".9"/><rect x="28" y="54" width="32" height="5" rx="2.5" fill="#f5d5d5" opacity=".6"/><path d="M32 46 Q44 35 56 46" fill="#e88080" stroke="#c0392b" stroke-width="1.5"/><circle cx="44" cy="36" r="5" fill="#e88080" opacity=".9"/><path d="M44 32 L44 20" stroke="#f4d35e" stroke-width="2.5" stroke-linecap="round"/><circle cx="44" cy="19" r="3" fill="#f4d35e"/><text x="6" y="84" font-size="9" fill="#f4d35e" font-family="sans-serif">LENGUA ARRIBA</text></svg>',
+};
 
-// PRAXIAS
-var PXA=[
-  {em:'😮‍💨',tit:'Soplar velas',desc:'Sopla fuerte para apagar las velas del Mundo del Revés',
-   porq:'Fortalece el control del soplo y la presión del aire',c:'var(--azul)'},
-  {em:'👅',tit:'Lengua a los lados',desc:'Lengua derecha → pausa → lengua izquierda. 5 veces',
-   porq:'Mejora la movilidad lateral para sonidos L, R, N',c:'var(--verde)'},
-  {em:'🐡',tit:'Inflar mejillas',desc:'Infla las dos mejillas. Aguanta 3 seg. ¡5 veces!',
-   porq:'Trabaja la musculatura de las mejillas y el control del aire',c:'var(--naranja)'},
-  {em:'😬',tit:'Sonidos exagerados',desc:'Di "AAAA" → "OOOO" → "EEEE" abriendo bien la boca',
-   porq:'Practica la apertura y la articulación de las vocales',c:'var(--rojo)'},
-  {em:'💋',tit:'Besos al espejo',desc:'Haz 5 besos muy sonoros mirándote al espejo',
-   porq:'Ejercita el cierre de labios, clave para P, B, M',c:'var(--am)'},
-  {em:'😤',tit:'Fuerza de Eleven',desc:'Cierra los labios fuerte, hincha mejillas y aguanta 5 seg',
-   porq:'Desarrolla la fuerza y tonicidad de los labios',c:'var(--azul)'},
-  {em:'🐍',tit:'Lengua serpiente',desc:'Saca la lengua muy despacio y métela igual de despacio. 5 veces',
-   porq:'Mejora la precisión y el control voluntario de la lengua',c:'var(--verde)'},
-  {em:'🌬️',tit:'Activar portal',desc:'Sopla suave primero, luego cada vez más fuerte hasta abrir el portal',
-   porq:'Trabaja el control graduado del soplo y la respiración',c:'var(--morado)'},
+var RUTINA = [
+  {
+    num:1, em:'😮‍💨', nom:'Soplar velas del portal',
+    rep:'5 repeticiones', desc:'Coge aire por la nariz y sopla muy fuerte por la boca',
+    porq:'Fortalece los musculos del soplo, clave para los sonidos P, B, F',
+    svg:'soplo',
+    como:'Pon la posicion de soplar',
+    pasos:'1. Coge aire lento por la nariz\n2. Labios juntos y un poco hacia adelante\n3. Sopla fuerte y largo\n4. Como si apagaras 5 velas de golpe\n5. Repite 5 veces',
+    truco:'Imagina que apagas las luces del Mundo del Reves soplando'
+  },
+  {
+    num:2, em:'👅', nom:'Lengua a los lados',
+    rep:'5 veces a cada lado', desc:'Lleva la punta de la lengua al lado derecho, pausa, y al lado izquierdo',
+    porq:'Mejora la movilidad lateral de la lengua para los sonidos L, R y N',
+    svg:'lengua_lados',
+    como:'Mueve la lengua de lado a lado',
+    pasos:'1. Abre la boca un poco\n2. Saca la punta de la lengua hacia la comisura derecha\n3. Aguanta 2 segundos\n4. Lleva al lado izquierdo\n5. Repite 5 veces cada lado despacio',
+    truco:'La lengua es un explorador que va de un lado al otro del portal'
+  },
+  {
+    num:3, em:'🐡', nom:'Mejillas de globo',
+    rep:'5 repeticiones de 3 segundos', desc:'Infla las dos mejillas a la vez como un globo y suelta el aire',
+    porq:'Trabaja la musculatura de las mejillas y el control del aire en la boca',
+    svg:'mejillas',
+    como:'Infla las mejillas con aire',
+    pasos:'1. Cierra bien la boca\n2. Infla las dos mejillas con aire a la vez\n3. Aguanta 3 segundos\n4. Suelta el aire despacio por los labios\n5. Descansa y repite 5 veces',
+    truco:'Como el pez globo del Mundo del Reves, hinchate todo lo que puedas'
+  },
+  {
+    num:4, em:'😁', nom:'La sonrisa de Eleven',
+    rep:'Mantener 3 segundos, 5 veces', desc:'Sonrie lo mas grande posible enseñando todos los dientes, luego pon cara neutra',
+    porq:'Ejercita los musculos faciales y activa los labios para la articulacion',
+    svg:'boca_abierta',
+    como:'Estira los labios hacia los lados',
+    pasos:'1. Empieza con la cara relajada\n2. Estira los labios hacia los lados como la sonrisa mas grande del mundo\n3. Enseña todos los dientes de arriba y abajo\n4. Aguanta 3 segundos\n5. Relaja y repite 5 veces',
+    truco:'Eleven sonrie cuando abre el portal, pon tu mejor sonrisa de superheroe'
+  },
+  {
+    num:5, em:'💋', nom:'Besos al espejo',
+    rep:'5 besos sonoros', desc:'Pon los labios en forma de beso y haz un sonido fuerte al juntar y separar',
+    porq:'Ejercita el cierre y apertura de labios, fundamental para P, B y M',
+    svg:'labios_beso',
+    como:'Labios juntos y redondeados hacia adelante',
+    pasos:'1. Junta los labios\n2. Empujalos un poco hacia adelante como para dar un beso\n3. Separa los labios haciendo un sonido fuerte: MUAK\n4. El sonido tiene que ser bien audible\n5. Repite 5 veces seguidas',
+    truco:'Manda un beso a Eleven a traves del portal, que lo oiga bien'
+  },
+  {
+    num:6, em:'😤', nom:'Fuerza de Eleven',
+    rep:'5 repeticiones de 5 segundos', desc:'Cierra los labios con mucha fuerza e hincha las mejillas, aguanta y suelta',
+    porq:'Desarrolla la fuerza y tonicidad de los labios para articular correctamente',
+    svg:'labios_fuerza',
+    como:'Labios juntos y muy apretados',
+    pasos:'1. Cierra los labios con toda tu fuerza\n2. Hincha un poco las mejillas\n3. Aguanta apretando 5 segundos\n4. Suelta de golpe\n5. Repite 5 veces',
+    truco:'Eleven aprieta los labios cuando usa sus poderes. Tu tambien tienes ese poder'
+  },
+  {
+    num:7, em:'🐍', nom:'La lengua serpiente',
+    rep:'5 veces despacio', desc:'Saca la lengua muy despacio hacia afuera y vuelvela a meter igual de despacio',
+    porq:'Desarrolla la precision y el control voluntario de los movimientos de la lengua',
+    svg:'lengua_fuera',
+    como:'Lengua que sale y entra muy despacio',
+    pasos:'1. Abre la boca un poco\n2. Saca la lengua MUY despacio, contando 3 segundos\n3. Cuando este fuera del todo, para un momento\n4. Metela de nuevo MUY despacio, contando 3 segundos\n5. Repite 5 veces sin prisa',
+    truco:'La serpiente del Mundo del Reves se mueve muy despacio. Tu lengua tambien'
+  },
+  {
+    num:8, em:'⬆️', nom:'Lengua al paladar',
+    rep:'5 repeticiones lentas', desc:'Sube la punta de la lengua al paladar justo detras de los dientes de arriba y baja',
+    porq:'Entrena la posicion exacta de la lengua para los sonidos L, N, T y D',
+    svg:'lengua_paladar',
+    como:'Punta de lengua sube al techo de la boca',
+    pasos:'1. Abre la boca un poco\n2. Sube la PUNTA de la lengua al techo de la boca\n3. Tocalo justo detras de los dientes de arriba\n4. Notaras un hueco rugoso, ahi es exactamente\n5. Baja la lengua y repite 5 veces',
+    truco:'La punta de la lengua es como el ascensor de la Torre de Hawkins: sube hasta arriba y baja'
+  },
 ];
-var pxAct=[];
-function initPrx(){if(!pxAct.length)shufflePrx();}
-function shufflePrx(){pxAct=PXA.slice().sort(function(){return Math.random()-.5;}).slice(0,4);renderPrx();}
-function renderPrx(){
-  var h='';pxAct.forEach(function(p,i){var cnt=S.prxCnt[p.tit]||0;
-    h+='<div class="pc" id="pc'+i+'" onclick="actPrx('+i+')">'
-      +'<span class="pce">'+p.em+'</span><h3 style="color:'+p.c+'">'+p.tit+'</h3><p>'+p.desc+'</p>'
-      +'<div class="porq">💡 '+p.porq+'</div><div class="pc-cnt">'+cnt+'x</div>'
-      +'<button class="btn bg" style="margin-top:5px;font-size:.8rem;padding:5px 11px" onclick="event.stopPropagation();donePrx('+i+')">✅ ¡Hecho!</button>'
-      +'</div>';
-  });
-  document.getElementById('pg').innerHTML=h;setRes('prx-res','','');
+
+var rutMrc=[];
+function initRut(){
+  rutMrc=RUTINA.map(function(){return false;});
+  renderRut();
 }
-function actPrx(i){document.querySelectorAll('.pc').forEach(function(c){c.classList.remove('activa');});document.getElementById('pc'+i).classList.add('activa');}
-function donePrx(i){var p=pxAct[i];S.prxCnt[p.tit]=(S.prxCnt[p.tit]||0)+1;addPts(10);sonar('ok');
-  setRes('prx-res','ok','🎉 ¡Bravo! "'+p.tit+'" × '+S.prxCnt[p.tit]+'. +10 energía');
-  notif(p.em,'¡'+p.tit+'!','¡Completado! +10 energía');renderPrx();}
+function renderRut(){
+  var h='';
+  RUTINA.forEach(function(ej,i){
+    var d=rutMrc[i];
+    h+='<div class="rut-item'+(d?' done':'')+'" id="ri'+i+'">'
+      // Cabecera — siempre visible
+      +'<div class="rut-header" onclick="toggleRut('+i+')">'
+        +'<div class="rut-num">'+ej.num+'</div>'
+        +'<div class="rut-em">'+ej.em+'</div>'
+        +'<div class="rut-info">'
+          +'<h3>'+ej.nom+'</h3>'
+          +'<div class="rut-rep">'+ej.rep+'</div>'
+          +'<p>'+ej.desc+'</p>'
+        +'</div>'
+        +'<span class="rut-expand-lbl" id="re'+i+'">▼ Ver como</span>'
+        +'<button class="rut-ck" onclick="event.stopPropagation();mrcRut('+i+')">'+(d?'✅':'○')+'</button>'
+      +'</div>'
+      // Panel expandible con SVG
+      +'<div class="rut-panel" id="rp'+i+'">'
+        +'<div class="rut-panel-svg">'+RUT_SVG[ej.svg]+'</div>'
+        +'<div class="rut-panel-txt">'
+          +'<div class="rut-p-como">'+ej.como+'</div>'
+          +'<div class="rut-p-pasos">'+ej.pasos.replace(/\n/g,'<br>')+'</div>'
+          +'<div class="rut-p-truco">💡 '+ej.truco+'</div>'
+          +'<div class="porq" style="margin-top:5px">🎯 '+ej.porq+'</div>'
+        +'</div>'
+      +'</div>'
+    +'</div>';
+  });
+  document.getElementById('rut-list').innerHTML=h;
+  var hc=rutMrc.filter(function(v){return v;}).length;
+  document.getElementById('rut-bar').style.width=Math.round(hc/RUTINA.length*100)+'%';
+  document.getElementById('rut-lbl').textContent=hc+' de '+RUTINA.length+' ejercicios completados';
+  if(hc===RUTINA.length){
+    setRes('rut-res','ok','¡RUTINA COMPLETA! ¡Eres increible Claudia! +40 energia');
+    addPts(40);sonar('win');desblq('act_ok');
+    notif('¡RUTINA!','¡Todos los ejercicios hechos!','¡Eleven esta muy orgullosa!');
+    confeti();
+  } else setRes('rut-res','','');
+}
+function toggleRut(i){
+  var item=document.getElementById('ri'+i);
+  var lbl=document.getElementById('re'+i);
+  var abierto=item.classList.contains('abierto');
+  // Cerrar todos
+  RUTINA.forEach(function(_,j){
+    document.getElementById('ri'+j).classList.remove('abierto');
+    document.getElementById('re'+j).textContent='▼ Ver como';
+  });
+  if(!abierto){
+    item.classList.add('abierto');
+    lbl.textContent='▲ Cerrar';
+  }
+}
+function mrcRut(i){
+  if(rutMrc[i])return;
+  rutMrc[i]=true;sonar('ok');addPts(8);
+  renderRut();
+  // Abrir automaticamente el siguiente ejercicio
+  if(i+1<RUTINA.length&&!rutMrc[i+1]){
+    setTimeout(function(){toggleRut(i+1);},300);
+  }
+}
+function resetRut(){initRut();setRes('rut-res','','');}
 
 // FONEMAS
 var SERIES=[
@@ -769,6 +882,106 @@ function renderFon(){
     h+='<button class="sb'+(i===S.fSiIdx?' ac':'')+'" onclick="selSil('+i+')">'+sil+'</button>';
   });
   document.getElementById('fsil').innerHTML=h;
+  renderGuia(sr.s[S.fSiIdx]);
+}
+
+// ===== GUIAS DE ARTICULACION =====
+// SVGs de boca/lengua dibujados inline, uno por grupo de fonema
+var SVG_BOCA = {
+  // Boca neutra abierta
+  abierta: '<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="40" cy="40" rx="32" ry="28" fill="#1a0808" stroke="#e63946" stroke-width="2.5"/><path d="M16 40 Q40 58 64 40" fill="#c0392b" stroke="none"/><ellipse cx="40" cy="32" rx="22" ry="8" fill="#f5d5d5" opacity=".9"/><rect x="24" y="53" width="32" height="6" rx="3" fill="#f5d5d5" opacity=".6"/><ellipse cx="40" cy="52" rx="14" ry="5" fill="#e07070" opacity=".7"/></svg>',
+  // Labios cerrados (para M, B, P)
+  cerrada: '<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="40" cy="40" rx="32" ry="28" fill="#1a0808" stroke="#e63946" stroke-width="2.5"/><path d="M14 40 Q40 34 66 40 Q40 48 14 40Z" fill="#c0392b"/><path d="M14 40 Q40 34 66 40" stroke="#f5d5d5" stroke-width="2.5" fill="none"/></svg>',
+  // Labios entreabiertos, lengua arriba (para L, N)
+  lengua_arriba: '<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="40" cy="40" rx="32" ry="28" fill="#1a0808" stroke="#e63946" stroke-width="2.5"/><path d="M18 42 Q40 56 62 42" fill="#c0392b"/><ellipse cx="40" cy="32" rx="20" ry="7" fill="#f5d5d5" opacity=".9"/><rect x="27" y="50" width="26" height="5" rx="2.5" fill="#f5d5d5" opacity=".6"/><path d="M32 44 Q40 35 48 44" fill="#e88080" stroke="#c0392b" stroke-width="1.5"/><circle cx="40" cy="36" r="4" fill="#e88080" opacity=".9"/><line x1="40" y1="32" x2="40" y2="22" stroke="#e88080" stroke-width="2.5" stroke-linecap="round"/></svg>',
+  // Lengua entre dientes (para T, D)
+  lengua_dientes: '<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="40" cy="40" rx="32" ry="28" fill="#1a0808" stroke="#e63946" stroke-width="2.5"/><path d="M18 42 Q40 55 62 42" fill="#c0392b"/><ellipse cx="40" cy="32" rx="20" ry="7" fill="#f5d5d5" opacity=".9"/><rect x="27" y="50" width="26" height="5" rx="2.5" fill="#f5d5d5" opacity=".6"/><ellipse cx="40" cy="48" rx="10" ry="5" fill="#e88080" opacity=".95"/><path d="M30 48 Q40 53 50 48" fill="#e88080"/></svg>',
+  // Boca con flujo de aire (para S, F)
+  soplando: '<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="40" cy="42" rx="32" ry="26" fill="#1a0808" stroke="#e63946" stroke-width="2.5"/><path d="M20 44 Q40 54 60 44" fill="#c0392b"/><ellipse cx="40" cy="34" rx="18" ry="6" fill="#f5d5d5" opacity=".9"/><rect x="28" y="50" width="24" height="4" rx="2" fill="#f5d5d5" opacity=".6"/><ellipse cx="40" cy="46" rx="7" ry="3.5" fill="#e88080" opacity=".8"/><path d="M52 38 Q60 33 68 35" stroke="#06d6a0" stroke-width="2" stroke-linecap="round" fill="none" opacity=".8"/><path d="M54 43 Q63 40 70 42" stroke="#06d6a0" stroke-width="2" stroke-linecap="round" fill="none" opacity=".6"/><path d="M53 48 Q61 47 68 49" stroke="#06d6a0" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".5"/></svg>',
+  // Nariz activa (para N, M)
+  nasal: '<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="40" cy="44" rx="32" ry="26" fill="#1a0808" stroke="#e63946" stroke-width="2.5"/><path d="M14 44 Q40 38 66 44 Q40 52 14 44Z" fill="#c0392b"/><path d="M14 44 Q40 38 66 44" stroke="#f5d5d5" stroke-width="2" fill="none"/><ellipse cx="30" cy="28" rx="6" ry="7" fill="none" stroke="#f4d35e" stroke-width="2"/><ellipse cx="50" cy="28" rx="6" ry="7" fill="none" stroke="#f4d35e" stroke-width="2"/><path d="M25 22 Q30 18 35 22" stroke="#06d6a0" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".8"/><path d="M45 22 Q50 18 55 22" stroke="#06d6a0" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".8"/></svg>',
+  // Vocal A (boca muy abierta)
+  vocal_a: '<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="40" cy="40" rx="32" ry="28" fill="#1a0808" stroke="#e63946" stroke-width="2.5"/><ellipse cx="40" cy="50" rx="22" ry="16" fill="#c0392b"/><ellipse cx="40" cy="32" rx="20" ry="7" fill="#f5d5d5" opacity=".9"/><rect x="26" y="54" width="28" height="6" rx="3" fill="#f5d5d5" opacity=".6"/><ellipse cx="40" cy="50" rx="12" ry="8" fill="#e07070" opacity=".8"/></svg>',
+  // Vocal E (boca estirada)
+  vocal_e: '<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="40" cy="40" rx="32" ry="28" fill="#1a0808" stroke="#e63946" stroke-width="2.5"/><path d="M14 40 Q40 52 66 40 Q40 48 14 40Z" fill="#c0392b"/><ellipse cx="40" cy="32" rx="24" ry="6" fill="#f5d5d5" opacity=".9"/><rect x="22" y="48" width="36" height="5" rx="2.5" fill="#f5d5d5" opacity=".6"/><ellipse cx="40" cy="44" rx="18" ry="4" fill="#e07070" opacity=".7"/></svg>',
+  // Vocal I (boca estirada fina)
+  vocal_i: '<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="40" cy="40" rx="32" ry="28" fill="#1a0808" stroke="#e63946" stroke-width="2.5"/><path d="M12 40 Q40 48 68 40 Q40 44 12 40Z" fill="#c0392b"/><ellipse cx="40" cy="33" rx="26" ry="5" fill="#f5d5d5" opacity=".9"/><rect x="20" y="46" width="40" height="4" rx="2" fill="#f5d5d5" opacity=".6"/><ellipse cx="40" cy="43" rx="20" ry="3" fill="#e07070" opacity=".7"/></svg>',
+  // Vocal O (boca redonda)
+  vocal_o: '<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="40" cy="40" rx="32" ry="28" fill="#1a0808" stroke="#e63946" stroke-width="2.5"/><ellipse cx="40" cy="44" rx="14" ry="16" fill="#c0392b"/><ellipse cx="40" cy="30" rx="16" ry="5.5" fill="#f5d5d5" opacity=".9"/><ellipse cx="40" cy="56" rx="16" ry="5.5" fill="#f5d5d5" opacity=".6"/><ellipse cx="40" cy="44" rx="8" ry="10" fill="#e07070" opacity=".8"/></svg>',
+  // Vocal U (boca muy redonda y pequeña)
+  vocal_u: '<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="40" cy="40" rx="32" ry="28" fill="#1a0808" stroke="#e63946" stroke-width="2.5"/><ellipse cx="40" cy="44" rx="9" ry="11" fill="#c0392b"/><ellipse cx="40" cy="30" rx="12" ry="5" fill="#f5d5d5" opacity=".9"/><ellipse cx="40" cy="56" rx="12" ry="5" fill="#f5d5d5" opacity=".6"/><ellipse cx="40" cy="44" rx="5" ry="7" fill="#e07070" opacity=".8"/></svg>',
+};
+
+// Mapa fonema -> guía. Clave = primera(s) letra(s) del fonema
+var GUIAS_FON = {
+  'A': {svg:'vocal_a', tit:'VOCAL A', paso:'Boca muy abierta, lengua abajo y atrás. Mandibula baja al maximo.', truco:'Imagina que el medico te mira la garganta: ¡AAAA!'},
+  'E': {svg:'vocal_e', tit:'VOCAL E', paso:'Boca semiabierta y estirada hacia los lados como una sonrisa.', truco:'Es como si mostraras los dientes de lado: ehhh'},
+  'I': {svg:'vocal_i', tit:'VOCAL I', paso:'Labios muy estirados hacia los lados, boca casi cerrada.', truco:'Pon cara de "que asco" estirada: iiiii'},
+  'O': {svg:'vocal_o', tit:'VOCAL O', paso:'Labios en forma de circulo redondo. Boca abierta hacia abajo.', truco:'Como si soplaras una vela lentamente: ooooo'},
+  'U': {svg:'vocal_u', tit:'VOCAL U', paso:'Labios muy juntos y redondeados hacia adelante, como un tubo.', truco:'Como dar un beso de lejos: uuuuu'},
+  'PA': {svg:'cerrada', tit:'SONIDO P', paso:'Cierra los labios con fuerza. Suelta el aire de golpe: ¡POP!', truco:'Como un globo que explota. Labios juntos y... ¡POP!'},
+  'PE': {svg:'cerrada', tit:'SONIDO P', paso:'Cierra los labios con fuerza. Suelta el aire de golpe: ¡POP!', truco:'Como un globo que explota. Labios juntos y... ¡POP!'},
+  'PI': {svg:'cerrada', tit:'SONIDO P', paso:'Cierra los labios con fuerza. Suelta el aire de golpe: ¡POP!', truco:'Como un globo que explota. Labios juntos y... ¡POP!'},
+  'PO': {svg:'cerrada', tit:'SONIDO P', paso:'Cierra los labios con fuerza. Suelta el aire de golpe: ¡POP!', truco:'Como un globo que explota. Labios juntos y... ¡POP!'},
+  'PU': {svg:'cerrada', tit:'SONIDO P', paso:'Cierra los labios con fuerza. Suelta el aire de golpe: ¡POP!', truco:'Como un globo que explota. Labios juntos y... ¡POP!'},
+  'TA': {svg:'lengua_dientes', tit:'SONIDO T', paso:'Punta de la lengua detras de los dientes de arriba. Suelta el aire rapido.', truco:'La lengua toca el techo justo detras de los dientes y cae: TA'},
+  'TE': {svg:'lengua_dientes', tit:'SONIDO T', paso:'Punta de la lengua detras de los dientes de arriba. Suelta el aire rapido.', truco:'La lengua toca el techo justo detras de los dientes y cae: TE'},
+  'TI': {svg:'lengua_dientes', tit:'SONIDO T', paso:'Punta de la lengua detras de los dientes de arriba. Suelta el aire rapido.', truco:'La lengua toca el techo justo detras de los dientes y cae: TI'},
+  'TO': {svg:'lengua_dientes', tit:'SONIDO T', paso:'Punta de la lengua detras de los dientes de arriba. Suelta el aire rapido.', truco:'La lengua toca el techo justo detras de los dientes y cae: TO'},
+  'TU': {svg:'lengua_dientes', tit:'SONIDO T', paso:'Punta de la lengua detras de los dientes de arriba. Suelta el aire rapido.', truco:'La lengua toca el techo justo detras de los dientes y cae: TU'},
+  'MA': {svg:'nasal', tit:'SONIDO M', paso:'Labios bien cerrados. El aire sale por la NARIZ haciendo mmm...', truco:'Es como tararear con la boca cerrada: mmmm'},
+  'ME': {svg:'nasal', tit:'SONIDO M', paso:'Labios bien cerrados. El aire sale por la NARIZ haciendo mmm...', truco:'Es como tararear con la boca cerrada: mmmm'},
+  'MI': {svg:'nasal', tit:'SONIDO M', paso:'Labios bien cerrados. El aire sale por la NARIZ haciendo mmm...', truco:'Es como tararear con la boca cerrada: mmmm'},
+  'MO': {svg:'nasal', tit:'SONIDO M', paso:'Labios bien cerrados. El aire sale por la NARIZ haciendo mmm...', truco:'Es como tararear con la boca cerrada: mmmm'},
+  'MU': {svg:'nasal', tit:'SONIDO M', paso:'Labios bien cerrados. El aire sale por la NARIZ haciendo mmm...', truco:'Es como tararear con la boca cerrada: mmmm'},
+  'SA': {svg:'soplando', tit:'SONIDO S', paso:'Dientes casi juntos, lengua abajo. Sopla aire por el centro: ssss', truco:'Como la serpiente del Mundo del Reves: ssssss'},
+  'SE': {svg:'soplando', tit:'SONIDO S', paso:'Dientes casi juntos, lengua abajo. Sopla aire por el centro: ssss', truco:'Como la serpiente del Mundo del Reves: ssssss'},
+  'SI': {svg:'soplando', tit:'SONIDO S', paso:'Dientes casi juntos, lengua abajo. Sopla aire por el centro: ssss', truco:'Como la serpiente del Mundo del Reves: ssssss'},
+  'SO': {svg:'soplando', tit:'SONIDO S', paso:'Dientes casi juntos, lengua abajo. Sopla aire por el centro: ssss', truco:'Como la serpiente del Mundo del Reves: ssssss'},
+  'SU': {svg:'soplando', tit:'SONIDO S', paso:'Dientes casi juntos, lengua abajo. Sopla aire por el centro: ssss', truco:'Como la serpiente del Mundo del Reves: ssssss'},
+  'LA': {svg:'lengua_arriba', tit:'SONIDO L', paso:'Punta de la lengua SUBE y toca el paladar, justo detras de los dientes de arriba.', truco:'La lengua sube como un ascensor y baja: L-A'},
+  'LE': {svg:'lengua_arriba', tit:'SONIDO L', paso:'Punta de la lengua SUBE y toca el paladar, justo detras de los dientes de arriba.', truco:'La lengua sube como un ascensor y baja: L-E'},
+  'LI': {svg:'lengua_arriba', tit:'SONIDO L', paso:'Punta de la lengua SUBE y toca el paladar, justo detras de los dientes de arriba.', truco:'La lengua sube como un ascensor y baja: L-I'},
+  'LO': {svg:'lengua_arriba', tit:'SONIDO L', paso:'Punta de la lengua SUBE y toca el paladar, justo detras de los dientes de arriba.', truco:'La lengua sube como un ascensor y baja: L-O'},
+  'LU': {svg:'lengua_arriba', tit:'SONIDO L', paso:'Punta de la lengua SUBE y toca el paladar, justo detras de los dientes de arriba.', truco:'La lengua sube como un ascensor y baja: L-U'},
+  'NA': {svg:'nasal', tit:'SONIDO N', paso:'Lengua arriba tocando el paladar. Aire por la NARIZ mientras vibra: nnnn', truco:'Como tararear pero con la lengua arriba: nnnnn'},
+  'NE': {svg:'nasal', tit:'SONIDO N', paso:'Lengua arriba tocando el paladar. Aire por la NARIZ mientras vibra: nnnn', truco:'Como tararear pero con la lengua arriba: nnnnn'},
+  'NI': {svg:'nasal', tit:'SONIDO N', paso:'Lengua arriba tocando el paladar. Aire por la NARIZ mientras vibra: nnnn', truco:'Como tararear pero con la lengua arriba: nnnnn'},
+  'NO': {svg:'nasal', tit:'SONIDO N', paso:'Lengua arriba tocando el paladar. Aire por la NARIZ mientras vibra: nnnn', truco:'Como tararear pero con la lengua arriba: nnnnn'},
+  'NU': {svg:'nasal', tit:'SONIDO N', paso:'Lengua arriba tocando el paladar. Aire por la NARIZ mientras vibra: nnnn', truco:'Como tararear pero con la lengua arriba: nnnnn'},
+  'BA': {svg:'cerrada', tit:'SONIDO B', paso:'Labios juntos pero sin presion fuerte. Vibran al soltar: mmm-BA', truco:'Como la P pero mas suave. Los labios vibran como una abeja: bzzz'},
+  'BE': {svg:'cerrada', tit:'SONIDO B', paso:'Labios juntos pero sin presion fuerte. Vibran al soltar: mmm-BE', truco:'Como la P pero mas suave. Los labios vibran como una abeja: bzzz'},
+  'BI': {svg:'cerrada', tit:'SONIDO B', paso:'Labios juntos pero sin presion fuerte. Vibran al soltar: mmm-BI', truco:'Como la P pero mas suave. Los labios vibran como una abeja: bzzz'},
+  'BO': {svg:'cerrada', tit:'SONIDO B', paso:'Labios juntos pero sin presion fuerte. Vibran al soltar: mmm-BO', truco:'Como la P pero mas suave. Los labios vibran como una abeja: bzzz'},
+  'BU': {svg:'cerrada', tit:'SONIDO B', paso:'Labios juntos pero sin presion fuerte. Vibran al soltar: mmm-BU', truco:'Como la P pero mas suave. Los labios vibran como una abeja: bzzz'},
+  // Combinaciones y palabras: guia generica
+  'PAPA': {svg:'cerrada', tit:'COMBINACION PA-PA', paso:'Dos veces P seguidas. Labios se cierran y abren dos veces.', truco:'Como dos besos con la boca: PA... PA'},
+  'PATA': {svg:'cerrada', tit:'COMBINACION PA-TA', paso:'Primero labios cerrados para PA, luego lengua arriba para TA.', truco:'Labios... lengua: PA-TA'},
+  'PAKA': {svg:'cerrada', tit:'COMBINACION PA-KA', paso:'PA: labios. KA: lengua atras en el paladar blando.', truco:'Delante... atras: PA-KA'},
+  'TATA': {svg:'lengua_dientes', tit:'COMBINACION TA-TA', paso:'Lengua toca y suelta los dientes dos veces seguidas.', truco:'Lengua sube y baja dos veces: TA-TA'},
+  'BEBA': {svg:'cerrada', tit:'COMBINACION BE-BA', paso:'Labios vibran suavemente en ambas silabas.', truco:'Labios suaves como una abeja: BE-BA'},
+  'PATO': {svg:'cerrada', tit:'PATO', paso:'PA: labios. TO: lengua toca detras de dientes y boca redonda.', truco:'El pato del Mundo del Reves: PA-TO'},
+  'TAPA': {svg:'lengua_dientes', tit:'TAPA', paso:'TA: lengua arriba. PA: labios cerrados.', truco:'Lengua... labios: TA-PA'},
+  'POLO': {svg:'cerrada', tit:'POLO', paso:'PO: labios y boca redonda. LO: lengua arriba y boca redonda.', truco:'Labios... lengua arriba: PO-LO'},
+  'MESA': {svg:'nasal', tit:'MESA', paso:'ME: labios con nariz. SA: dientes juntos con aire.', truco:'Nariz... serpiente: ME-SA'},
+  'BOTA': {svg:'cerrada', tit:'BOTA', paso:'BO: labios suaves y boca redonda. TA: lengua detras de dientes.', truco:'Labios suaves... lengua: BO-TA'},
+};
+
+function renderGuia(silaba){
+  var guia=GUIAS_FON[silaba.toUpperCase()];
+  var wrap=document.getElementById('fon-guia');
+  if(!wrap)return;
+  if(!guia){wrap.className='fon-guia-wrap vacio';return;}
+  var svgKey=guia.svg;
+  var svgHtml=SVG_BOCA[svgKey]||SVG_BOCA['abierta'];
+  wrap.className='fon-guia-wrap';
+  wrap.innerHTML=
+    '<div class="fon-guia-svg">'+svgHtml+'</div>'+
+    '<div class="fon-guia-txt">'+
+      '<div class="fon-g-tit">'+guia.tit+'</div>'+
+      '<div class="fon-g-paso">'+guia.paso+'</div>'+
+      '<div class="fon-g-truco">💡 '+guia.truco+'</div>'+
+    '</div>';
 }
 var fonMute=false;
 function toggleMute(){
@@ -1187,7 +1400,7 @@ if('serviceWorker' in navigator){
 }
 
 // INIT
-initAct();updTimer();
+initRut();updTimer();
 </script>
 </body>
 </html>
