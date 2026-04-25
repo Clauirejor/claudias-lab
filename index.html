@@ -112,7 +112,7 @@ html,body{background:var(--negro);color:var(--texto);font-family:'Nunito',sans-s
 /* Panel expandible con SVG + instrucción detallada */
 .rut-panel{display:none;padding:0 14px 14px;border-top:1px solid var(--borde);background:rgba(0,0,0,.15)}
 .rut-item.abierto .rut-panel{display:flex;gap:14px;align-items:flex-start;padding-top:12px}
-.rut-panel-svg{flex-shrink:0;width:88px;height:88px}
+.rut-panel-svg{flex-shrink:0;width:120px;height:100px}
 .rut-panel-txt .rut-p-como{font-size:.9rem;font-weight:900;color:var(--verde);margin-bottom:5px}
 .rut-panel-txt .rut-p-pasos{font-size:.86rem;color:var(--texto);line-height:1.65}
 .rut-panel-txt .rut-p-truco{font-size:.76rem;color:var(--am);font-style:italic;margin-top:5px;line-height:1.4}
@@ -185,16 +185,28 @@ html,body{background:var(--negro);color:var(--texto);font-family:'Nunito',sans-s
 .sb:active{transform:scale(.88)}
 .sb.ac{border-color:var(--verde);background:rgba(6,214,160,.22);box-shadow:0 0 14px rgba(6,214,160,.4);transform:scale(1.07)}
 
-/* GUIA ARTICULACION */
-.fon-guia-wrap{margin:10px auto 4px;max-width:420px;background:rgba(255,255,255,.04);
-  border:2px solid rgba(6,214,160,.2);border-radius:16px;padding:14px;display:flex;
-  gap:14px;align-items:center;min-height:90px;transition:all .35s}
-.fon-guia-wrap.vacio{display:none}
-.fon-guia-svg{flex-shrink:0;width:80px;height:80px}
-.fon-guia-txt{flex:1}
-.fon-guia-txt .fon-g-tit{font-size:.82rem;font-weight:900;color:var(--verde);margin-bottom:4px;letter-spacing:.5px}
-.fon-guia-txt .fon-g-paso{font-size:.88rem;color:var(--texto);line-height:1.55;margin-bottom:4px}
-.fon-guia-txt .fon-g-truco{font-size:.76rem;color:var(--am);font-style:italic;line-height:1.4}
+/* CUADRICULA LETRAS FONEMA */
+#fon-img-wrap{margin:10px auto;max-width:100%}
+#fon-letras-grid{display:flex;flex-direction:column;gap:14px;align-items:center}
+.fon-fila{display:flex;gap:14px;justify-content:center}
+.fon-letra-cell{display:flex;flex-direction:column;align-items:center;gap:6px}
+.fon-letra-cell .fon-letra-lbl{font-family:'Creepster',cursive;font-size:2.2rem;
+  color:var(--verde);text-shadow:0 0 10px rgba(6,214,160,.5);line-height:1}
+.fon-letra-cell .fon-letra-img{width:260px;height:260px;object-fit:cover;
+  border-radius:20px;border:3px solid rgba(6,214,160,.4);background:#0d1117;display:block;
+  box-shadow:0 0 20px rgba(6,214,160,.15)}
+.fon-letra-cell .fon-letra-ph{width:260px;height:260px;border-radius:20px;
+  border:3px dashed rgba(6,214,160,.25);background:rgba(6,214,160,.03);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;color:#666;text-align:center;line-height:1.7;padding:14px}
+/* Cuando hay 2 fotos en fila, cada una más pequeña para caber bien */
+.fon-fila:has(.fon-letra-cell:nth-child(2)) .fon-letra-img,
+.fon-fila:has(.fon-letra-cell:nth-child(2)) .fon-letra-ph{width:190px;height:190px}
+@media(max-width:560px){
+  .fon-letra-cell .fon-letra-img,.fon-letra-cell .fon-letra-ph{width:150px;height:150px}
+  .fon-fila:has(.fon-letra-cell:nth-child(2)) .fon-letra-img,
+  .fon-fila:has(.fon-letra-cell:nth-child(2)) .fon-letra-ph{width:140px;height:140px}
+}
 
 /* FONEMAS BOMBILLAS */
 .fon-bomb-wrap{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;padding:8px 4px;margin-bottom:2px}
@@ -252,20 +264,18 @@ html,body{background:var(--negro);color:var(--texto);font-family:'Nunito',sans-s
 .mmb{padding:6px 14px;border-radius:10px;border:2px solid var(--borde);background:rgba(255,255,255,.04);
   color:#aaa;cursor:pointer;font-family:'Nunito',sans-serif;font-size:.8rem;font-weight:700;transition:all .2s}
 .mmb.on{border-color:var(--azul);background:rgba(69,123,157,.2);color:var(--texto)}
-#mg{display:grid;gap:7px;justify-content:center;margin:9px 0}
+#mg{display:grid;gap:7px;justify-content:center;margin:9px 0;width:100%}
+/* Tamaño controlado por JS — solo estilos de apariencia aquí */
 .mc{background:rgba(20,20,35,.9);border:2px solid rgba(255,255,255,.1);border-radius:11px;
-  cursor:pointer;user-select:none;position:relative;perspective:300px;width:82px;height:82px}
-@media(min-width:600px){.mc{width:90px;height:90px}}
+  cursor:pointer;user-select:none;position:relative;perspective:600px;flex-shrink:0}
 .mci{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .42s}
 .mc.flip .mci{transform:rotateY(180deg)}
 .mcf,.mcb{position:absolute;inset:0;border-radius:9px;display:flex;flex-direction:column;
   align-items:center;justify-content:center;backface-visibility:hidden;-webkit-backface-visibility:hidden;gap:2px}
-.mcb{background:linear-gradient(135deg,var(--azul-osc),var(--morado));font-size:1.35rem;
+.mcb{background:linear-gradient(135deg,var(--azul-osc),var(--morado));
   color:rgba(255,255,255,.35);font-family:'Creepster',cursive}
 .mcf{transform:rotateY(180deg);background:linear-gradient(135deg,#1a1a2e,#16213e)}
-.mcf .mem-em{font-size:2rem}
-.mcf .mem-pal{font-size:.62rem;font-weight:900;color:var(--am);text-align:center;
-  letter-spacing:.5px;line-height:1.2;padding:0 3px}
+.mcf .mem-em{line-height:1}
 .mc.mtch{border-color:var(--verde);box-shadow:0 0 13px rgba(6,214,160,.5)}
 
 /* RITMO */
@@ -389,8 +399,11 @@ html,body{background:var(--negro);color:var(--texto);font-family:'Nunito',sans-s
     <div class="ftip" id="ftip">👆 Pulsa una sílaba para escucharla</div>
     <div class="sgrid" id="fsil"></div>
     <div class="fbig" id="fbig" onclick="playF()">A</div>
-    <!-- GUIA DE ARTICULACION -->
-    <div id="fon-guia" class="fon-guia-wrap"></div>
+    <!-- CUADRICULA DE IMAGENES POR LETRA -->
+    <div id="fon-img-wrap">
+      <div id="fon-letras-grid"></div>
+      <div id="fon-tip-box" class="fon-tip-box"></div>
+    </div>
     <div class="flex">
       <button class="btn bg" onclick="fonOk()">✅ ¡Lo dije!</button>
       <button class="btn bb" onclick="nextSerie()">🔀 Nueva serie</button>
@@ -450,11 +463,11 @@ html,body{background:var(--negro);color:var(--texto);font-family:'Nunito',sans-s
       <div class="mst"><span class="v" id="mm-t">0s</span><span class="l">Tiempo</span></div>
     </div>
     <div class="mlvls">
-      <button class="lv on" onclick="initMem(2,this)">Niv 1 — 4 cartas</button>
-      <button class="lv"    onclick="initMem(3,this)">Niv 2 — 6 cartas</button>
-      <button class="lv"    onclick="initMem(4,this)">Niv 3 — 8 cartas</button>
-      <button class="lv"    onclick="initMem(8,this)">Niv 4 — 16 cartas</button>
-      <button class="lv"    onclick="initMem(18,this)">Niv 5 — 36 cartas</button>
+      <button class="lv on" onclick="initMem('2x2',this)">Niv 1 — 2×2 (4 cartas)</button>
+      <button class="lv"    onclick="initMem('3x3',this)">Niv 2 — 3×3 (9 cartas)</button>
+      <button class="lv"    onclick="initMem('4x4',this)">Niv 3 — 4×4 (16 cartas)</button>
+      <button class="lv"    onclick="initMem('5x5',this)">Niv 4 — 5×5 (25 cartas)</button>
+      <button class="lv"    onclick="initMem('6x6',this)">Niv 5 — 6×6 (36 cartas)</button>
     </div>
     <div id="mg"></div>
     <div class="res" id="mem-res"></div>
@@ -463,14 +476,14 @@ html,body{background:var(--negro);color:var(--texto);font-family:'Nunito',sans-s
   <!-- RITMO -->
   <div class="tp" id="tp-rit">
     <div class="tit">🎵 Ritmo del Mundo del Revés</div>
-    <div class="desc">Mira qué botones se iluminan en naranja. Luego pulsa exactamente esos mismos botones para repetir el ritmo.</div>
-    <div style="text-align:center;font-size:.84rem;color:#aaa;margin-bottom:5px" id="rit-instr">Pulsa "Mostrar ritmo" para ver el patrón</div>
+    <div class="desc">Mira qué botones se iluminan. Cuando terminen, ¡pulsa esos mismos botones!</div>
+    <div style="text-align:center;font-size:.9rem;color:var(--am);font-weight:900;margin-bottom:8px" id="rit-instr">Pulsa "Mostrar ritmo" para empezar</div>
     <div class="beats" id="beats"></div>
     <div class="rst" id="rst"></div>
     <div class="flex">
       <button class="btn br" id="rb-show" onclick="showRit()">🎵 Mostrar ritmo</button>
-      <button class="btn bg" id="rb-rep"  onclick="startRep()" disabled>👏 ¡Repetir!</button>
-      <button class="btn bb"              onclick="newRit()">🔀 Nuevo ritmo</button>
+      <button class="btn bb" id="rb-rep"  onclick="repetirRitmo()" disabled>🔁 Ver ritmo otra vez</button>
+      <button class="btn b"               onclick="newRit()" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2)">🔀 Nuevo ritmo</button>
     </div>
     <div class="res" id="rit-res"></div>
   </div>
@@ -688,15 +701,169 @@ function updTimer(){
 }
 
 // RUTINA DIARIA — ejercicios fijos ordenados con guía visual
+// SVGs estilo cartoon: labios gruesos, dientes blancos, lengua rosa, fondo oscuro boca
+var M = {
+  // Función generadora de la base de la boca para no repetir código
+  // Cada SVG es 120x100 viewBox para más detalle
+};
+
+// SVGs individuales inspirados en las imágenes de referencia
 var RUT_SVG = {
-  soplo: '<svg viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="44" cy="48" rx="30" ry="24" fill="#1a0808" stroke="#e63946" stroke-width="2.5"/><path d="M22 50 Q44 60 66 50" fill="#c0392b"/><ellipse cx="44" cy="36" rx="20" ry="7" fill="#f5d5d5" opacity=".9"/><ellipse cx="44" cy="52" rx="8" ry="4" fill="#e88080" opacity=".8"/><path d="M58 42 Q68 37 76 39" stroke="#06d6a0" stroke-width="2.2" stroke-linecap="round" fill="none"/><path d="M60 48 Q70 45 78 47" stroke="#06d6a0" stroke-width="2" stroke-linecap="round" fill="none" opacity=".7"/><path d="M59 54 Q68 53 75 55" stroke="#06d6a0" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".5"/><text x="8" y="84" font-size="9" fill="#06d6a0" font-family="sans-serif">AIRE SALIENDO</text></svg>',
-  lengua_lados: '<svg viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="44" cy="44" rx="30" ry="26" fill="#1a0808" stroke="#e63946" stroke-width="2.5"/><path d="M20 46 Q44 58 68 46" fill="#c0392b"/><ellipse cx="44" cy="33" rx="22" ry="7" fill="#f5d5d5" opacity=".9"/><rect x="28" y="53" width="32" height="5" rx="2.5" fill="#f5d5d5" opacity=".6"/><ellipse cx="20" cy="44" rx="10" ry="6" fill="#e88080" stroke="#c0392b" stroke-width="1.5"/><path d="M20 38 Q10 44 20 50" stroke="#f4d35e" stroke-width="2" fill="none" stroke-dasharray="3,2"/><text x="6" y="84" font-size="9" fill="#f4d35e" font-family="sans-serif">LENGUA AL LADO</text></svg>',
-  mejillas: '<svg viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="44" cy="44" rx="38" ry="32" fill="#1a0808" stroke="#e63946" stroke-width="2.5"/><ellipse cx="44" cy="44" rx="36" ry="30" fill="none" stroke="#f77f00" stroke-width="1.5" stroke-dasharray="4,3" opacity=".5"/><path d="M14 44 Q44 38 74 44 Q44 50 14 44Z" fill="#c0392b"/><path d="M14 44 Q44 38 74 44" stroke="#f5d5d5" stroke-width="2" fill="none"/><ellipse cx="22" cy="40" rx="8" ry="8" fill="none" stroke="#f77f00" stroke-width="2"/><ellipse cx="66" cy="40" rx="8" ry="8" fill="none" stroke="#f77f00" stroke-width="2"/><text x="12" y="84" font-size="9" fill="#f77f00" font-family="sans-serif">MEJILLAS INFLADAS</text></svg>',
-  boca_abierta: '<svg viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="44" cy="44" rx="32" ry="28" fill="#1a0808" stroke="#e63946" stroke-width="2.5"/><ellipse cx="44" cy="54" rx="22" ry="16" fill="#c0392b"/><ellipse cx="44" cy="32" rx="22" ry="7" fill="#f5d5d5" opacity=".9"/><rect x="28" y="57" width="32" height="6" rx="3" fill="#f5d5d5" opacity=".6"/><ellipse cx="44" cy="52" rx="12" ry="8" fill="#e07070" opacity=".85"/><path d="M28 44 L28 58" stroke="#f5d5d5" stroke-width="2" opacity=".4"/><path d="M60 44 L60 58" stroke="#f5d5d5" stroke-width="2" opacity=".4"/><text x="8" y="84" font-size="9" fill="#e63946" font-family="sans-serif">BOCA MUY ABIERTA</text></svg>',
-  labios_beso: '<svg viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="44" cy="44" rx="30" ry="26" fill="#1a0808" stroke="#e63946" stroke-width="2.5"/><ellipse cx="44" cy="46" rx="10" ry="12" fill="#c0392b"/><ellipse cx="44" cy="32" rx="14" ry="5" fill="#f5d5d5" opacity=".9"/><ellipse cx="44" cy="58" rx="14" ry="5" fill="#f5d5d5" opacity=".6"/><ellipse cx="44" cy="46" rx="5" ry="7" fill="#e07070" opacity=".8"/><path d="M54 44 Q62 38 70 42" stroke="#f4d35e" stroke-width="1.5" fill="none" stroke-dasharray="2,2"/><text x="6" y="84" font-size="9" fill="#f4d35e" font-family="sans-serif">LABIOS REDONDOS</text></svg>',
-  labios_fuerza: '<svg viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="44" cy="44" rx="30" ry="26" fill="#1a0808" stroke="#e63946" stroke-width="2.5"/><path d="M16 44 Q44 36 72 44 Q44 52 16 44Z" fill="#c0392b"/><path d="M16 44 Q44 36 72 44" stroke="#f5d5d5" stroke-width="3" fill="none"/><path d="M16 44 Q44 52 72 44" stroke="#f5d5d5" stroke-width="1.5" fill="none" opacity=".5"/><line x1="30" y1="44" x2="58" y2="44" stroke="#e63946" stroke-width="3" stroke-dasharray="3,3"/><text x="4" y="84" font-size="9" fill="#e63946" font-family="sans-serif">LABIOS APRETADOS</text></svg>',
-  lengua_fuera: '<svg viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="44" cy="40" rx="30" ry="24" fill="#1a0808" stroke="#e63946" stroke-width="2.5"/><path d="M22 42 Q44 54 66 42" fill="#c0392b"/><ellipse cx="44" cy="30" rx="20" ry="7" fill="#f5d5d5" opacity=".9"/><rect x="28" y="50" width="32" height="5" rx="2.5" fill="#f5d5d5" opacity=".6"/><ellipse cx="44" cy="62" rx="9" ry="12" fill="#e88080" stroke="#c0392b" stroke-width="1.5"/><path d="M35 50 Q44 68 53 50" fill="#e88080"/><text x="6" y="84" font-size="9" fill="#e63946" font-family="sans-serif">LENGUA HACIA ABAJO</text></svg>',
-  lengua_paladar: '<svg viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="44" cy="44" rx="30" ry="26" fill="#1a0808" stroke="#e63946" stroke-width="2.5"/><path d="M20 46 Q44 58 68 46" fill="#c0392b"/><ellipse cx="44" cy="32" rx="20" ry="7" fill="#f5d5d5" opacity=".9"/><rect x="28" y="54" width="32" height="5" rx="2.5" fill="#f5d5d5" opacity=".6"/><path d="M32 46 Q44 35 56 46" fill="#e88080" stroke="#c0392b" stroke-width="1.5"/><circle cx="44" cy="36" r="5" fill="#e88080" opacity=".9"/><path d="M44 32 L44 20" stroke="#f4d35e" stroke-width="2.5" stroke-linecap="round"/><circle cx="44" cy="19" r="3" fill="#f4d35e"/><text x="6" y="84" font-size="9" fill="#f4d35e" font-family="sans-serif">LENGUA ARRIBA</text></svg>',
+
+  // SOPLAR — labios en O pequeña, líneas de aire saliendo
+  soplo: '<svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg">'
+    // Labio superior
+    +'<path d="M25 42 Q60 30 95 42" stroke="#d63031" stroke-width="10" stroke-linecap="round" fill="none"/>'
+    // Labio inferior
+    +'<path d="M25 52 Q60 68 95 52" stroke="#d63031" stroke-width="10" stroke-linecap="round" fill="none"/>'
+    // Interior boca (pequeña apertura)
+    +'<ellipse cx="60" cy="48" rx="18" ry="8" fill="#5c0a0a"/>'
+    // Lengua pequeña
+    +'<ellipse cx="60" cy="50" rx="10" ry="5" fill="#e17055"/>'
+    // Dientes arriba
+    +'<ellipse cx="60" cy="44" rx="14" ry="4" fill="white" opacity=".9"/>'
+    // Líneas de aire saliendo
+    +'<path d="M98 40 Q108 37 116 39" stroke="#06d6a0" stroke-width="2.5" stroke-linecap="round" fill="none"/>'
+    +'<path d="M98 47 Q110 45 117 47" stroke="#06d6a0" stroke-width="2.2" stroke-linecap="round" fill="none"/>'
+    +'<path d="M98 54 Q108 53 115 55" stroke="#06d6a0" stroke-width="2" stroke-linecap="round" fill="none"/>'
+    +'<text x="5" y="96" font-size="9" fill="#06d6a0" font-family="sans-serif" font-weight="bold">SOPLA FUERTE</text>'
+    +'</svg>',
+
+  // LENGUA A LOS LADOS — boca semiabierta, lengua apuntando a la derecha
+  lengua_lados: '<svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg">'
+    // Labio superior
+    +'<path d="M20 38 Q60 25 100 38" stroke="#d63031" stroke-width="11" stroke-linecap="round" fill="none"/>'
+    // Labio inferior
+    +'<path d="M20 55 Q60 70 100 55" stroke="#d63031" stroke-width="11" stroke-linecap="round" fill="none"/>'
+    // Interior
+    +'<path d="M22 40 Q60 28 98 40 Q98 57 60 68 Q22 57 22 40Z" fill="#5c0a0a"/>'
+    // Dientes arriba
+    +'<ellipse cx="60" cy="38" rx="30" ry="6" fill="white" opacity=".9"/>'
+    // Dientes abajo
+    +'<ellipse cx="60" cy="57" rx="28" ry="5" fill="white" opacity=".7"/>'
+    // Lengua apuntando a la derecha (fuera de la boca)
+    +'<path d="M60 50 Q85 45 105 48 Q105 56 85 56 Q70 58 60 54Z" fill="#e17055" stroke="#c0392b" stroke-width="1"/>'
+    // Flecha indicando dirección
+    +'<path d="M106 50 L116 50" stroke="#f4d35e" stroke-width="2.5" stroke-linecap="round"/>'
+    +'<polygon points="116,47 121,50 116,53" fill="#f4d35e"/>'
+    +'<text x="5" y="96" font-size="9" fill="#f4d35e" font-family="sans-serif" font-weight="bold">LENGUA AL LADO</text>'
+    +'</svg>',
+
+  // MEJILLAS INFLADAS — cara ancha, mejillas hinchadas, labios cerrados
+  mejillas: '<svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg">'
+    // Mejilla izquierda inflada
+    +'<ellipse cx="18" cy="50" rx="18" ry="20" fill="#f8b4b4" stroke="#d63031" stroke-width="1.5"/>'
+    // Mejilla derecha inflada
+    +'<ellipse cx="102" cy="50" rx="18" ry="20" fill="#f8b4b4" stroke="#d63031" stroke-width="1.5"/>'
+    // Labio superior (labios cerrados)
+    +'<path d="M28 45 Q60 36 92 45" stroke="#d63031" stroke-width="9" stroke-linecap="round" fill="none"/>'
+    // Labio inferior
+    +'<path d="M28 52 Q60 62 92 52" stroke="#d63031" stroke-width="9" stroke-linecap="round" fill="none"/>'
+    // Línea de unión labios
+    +'<path d="M28 48 Q60 50 92 48" stroke="#a8000a" stroke-width="2" fill="none"/>'
+    // Flechas indicando presión
+    +'<text x="10" y="22" font-size="11" fill="#f77f00" font-family="sans-serif">←</text>'
+    +'<text x="93" y="22" font-size="11" fill="#f77f00" font-family="sans-serif">→</text>'
+    +'<text x="5" y="96" font-size="9" fill="#f77f00" font-family="sans-serif" font-weight="bold">MEJILLAS INFLADAS</text>'
+    +'</svg>',
+
+  // BOCA MUY ABIERTA (sonrisa/A) — estilo AE de las imágenes
+  boca_abierta: '<svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg">'
+    // Labio superior grueso
+    +'<path d="M15 35 Q35 20 60 22 Q85 20 105 35" stroke="#d63031" stroke-width="12" stroke-linecap="round" fill="none"/>'
+    // Labio inferior grueso
+    +'<path d="M15 60 Q35 78 60 80 Q85 78 105 60" stroke="#d63031" stroke-width="12" stroke-linecap="round" fill="none"/>'
+    // Interior boca grande
+    +'<path d="M18 38 Q60 26 102 38 Q102 62 60 78 Q18 62 18 38Z" fill="#5c0a0a"/>'
+    // Lengua en el fondo (plana)
+    +'<ellipse cx="60" cy="68" rx="28" ry="10" fill="#e17055"/>'
+    +'<ellipse cx="60" cy="65" rx="20" ry="6" fill="#f0908a"/>'
+    // Dientes arriba
+    +'<ellipse cx="60" cy="38" rx="32" ry="7" fill="white" opacity=".95"/>'
+    // Separaciones dientes
+    +'<line x1="45" y1="32" x2="45" y2="44" stroke="#eee" stroke-width="1"/>'
+    +'<line x1="60" y1="31" x2="60" y2="44" stroke="#eee" stroke-width="1"/>'
+    +'<line x1="75" y1="32" x2="75" y2="44" stroke="#eee" stroke-width="1"/>'
+    // Dientes abajo
+    +'<ellipse cx="60" cy="61" rx="28" ry="6" fill="white" opacity=".8"/>'
+    +'<text x="15" y="96" font-size="9" fill="#e63946" font-family="sans-serif" font-weight="bold">BOCA MUY ABIERTA</text>'
+    +'</svg>',
+
+  // BESOS / LABIOS EN O — labios redondeados hacia adelante
+  labios_beso: '<svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg">'
+    // Labio superior redondeado (forma de beso)
+    +'<path d="M38 40 Q50 28 60 30 Q70 28 82 40" stroke="#d63031" stroke-width="11" stroke-linecap="round" fill="none"/>'
+    // Labio inferior redondeado
+    +'<path d="M38 55 Q50 68 60 68 Q70 68 82 55" stroke="#d63031" stroke-width="11" stroke-linecap="round" fill="none"/>'
+    // Interior ovalado pequeño
+    +'<ellipse cx="60" cy="48" rx="15" ry="14" fill="#5c0a0a"/>'
+    // Lengua pequeña asomando
+    +'<ellipse cx="60" cy="52" rx="9" ry="6" fill="#e17055"/>'
+    // Flechas indicando labios hacia adelante
+    +'<path d="M20 48 L32 48" stroke="#f4d35e" stroke-width="2" stroke-linecap="round" stroke-dasharray="3,2"/>'
+    +'<path d="M88 48 L100 48" stroke="#f4d35e" stroke-width="2" stroke-linecap="round" stroke-dasharray="3,2"/>'
+    +'<text x="5" y="96" font-size="9" fill="#f4d35e" font-family="sans-serif" font-weight="bold">LABIOS EN CIRCULO</text>'
+    +'</svg>',
+
+  // LABIOS APRETADOS (BMP REST) — línea horizontal, sin apertura
+  labios_fuerza: '<svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg">'
+    // Labio superior
+    +'<path d="M18 43 Q40 34 60 36 Q80 34 102 43" stroke="#d63031" stroke-width="10" stroke-linecap="round" fill="none"/>'
+    // Labio inferior
+    +'<path d="M18 52 Q40 62 60 62 Q80 62 102 52" stroke="#d63031" stroke-width="10" stroke-linecap="round" fill="none"/>'
+    // Línea de cierre
+    +'<path d="M18 47 Q60 50 102 47" stroke="#8c0000" stroke-width="3" fill="none"/>'
+    // Flechas de presión vertical
+    +'<path d="M60 28 L60 36" stroke="#e63946" stroke-width="2.5" stroke-linecap="round"/>'
+    +'<polygon points="57,36 60,42 63,36" fill="#e63946"/>'
+    +'<path d="M60 70 L60 62" stroke="#e63946" stroke-width="2.5" stroke-linecap="round"/>'
+    +'<polygon points="57,62 60,56 63,62" fill="#e63946"/>'
+    +'<text x="5" y="96" font-size="9" fill="#e63946" font-family="sans-serif" font-weight="bold">LABIOS BIEN CERRADOS</text>'
+    +'</svg>',
+
+  // LENGUA FUERA (serpiente) — lengua larga saliendo hacia abajo
+  lengua_fuera: '<svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg">'
+    // Labio superior
+    +'<path d="M20 35 Q60 22 100 35" stroke="#d63031" stroke-width="11" stroke-linecap="round" fill="none"/>'
+    // Labio inferior
+    +'<path d="M20 50 Q60 62 100 50" stroke="#d63031" stroke-width="11" stroke-linecap="round" fill="none"/>'
+    // Interior boca
+    +'<path d="M22 37 Q60 25 98 37 Q98 52 60 62 Q22 52 22 37Z" fill="#5c0a0a"/>'
+    // Dientes arriba
+    +'<ellipse cx="60" cy="37" rx="28" ry="5.5" fill="white" opacity=".9"/>'
+    // Dientes abajo
+    +'<ellipse cx="60" cy="52" rx="25" ry="5" fill="white" opacity=".75"/>'
+    // Lengua larga saliendo
+    +'<path d="M48 50 Q60 56 72 50 Q74 65 72 78 Q66 85 60 85 Q54 85 48 78 Q46 65 48 50Z" fill="#e17055" stroke="#c0392b" stroke-width="1.2"/>'
+    +'<ellipse cx="60" cy="75" rx="10" ry="7" fill="#f0908a"/>'
+    // Flecha hacia abajo
+    +'<path d="M60 86 L60 93" stroke="#f4d35e" stroke-width="2" stroke-linecap="round"/>'
+    +'<polygon points="57,90 60,95 63,90" fill="#f4d35e"/>'
+    +'<text x="5" y="99" font-size="8" fill="#e63946" font-family="sans-serif" font-weight="bold">LENGUA HACIA FUERA</text>'
+    +'</svg>',
+
+  // LENGUA AL PALADAR — boca abierta, lengua curvada arriba tocando el techo
+  lengua_paladar: '<svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg">'
+    // Labio superior
+    +'<path d="M18 33 Q60 18 102 33" stroke="#d63031" stroke-width="11" stroke-linecap="round" fill="none"/>'
+    // Labio inferior
+    +'<path d="M18 58 Q60 74 102 58" stroke="#d63031" stroke-width="11" stroke-linecap="round" fill="none"/>'
+    // Interior boca grande
+    +'<path d="M20 36 Q60 22 100 36 Q100 60 60 74 Q20 60 20 36Z" fill="#5c0a0a"/>'
+    // Paladar (techo boca) con punto de contacto marcado
+    +'<path d="M28 40 Q60 32 92 40" stroke="#8c3333" stroke-width="2" stroke-dasharray="3,2" fill="none"/>'
+    // Punto de contacto
+    +'<circle cx="60" cy="37" r="4" fill="#f4d35e"/>'
+    // Dientes arriba
+    +'<ellipse cx="60" cy="36" rx="28" ry="5" fill="white" opacity=".85"/>'
+    // Lengua curva subiendo y tocando el punto
+    +'<path d="M32 62 Q45 70 55 55 Q60 40 65 38 Q60 37 55 38 Q50 50 42 62 Q37 68 32 62Z" fill="#e17055"/>'
+    +'<path d="M32 62 Q38 55 48 52 Q56 48 62 38" stroke="#c0392b" stroke-width="1.5" fill="none"/>'
+    // Flecha hacia arriba
+    +'<path d="M60 50 L60 40" stroke="#f4d35e" stroke-width="2" stroke-linecap="round"/>'
+    +'<polygon points="57,42 60,36 63,42" fill="#f4d35e"/>'
+    +'<text x="3" y="96" font-size="8.5" fill="#f4d35e" font-family="sans-serif" font-weight="bold">LENGUA TOCA ARRIBA</text>'
+    +'</svg>',
 };
 
 var RUTINA = [
@@ -888,29 +1055,18 @@ function renderFon(){
 // ===== GUIAS DE ARTICULACION =====
 // SVGs de boca/lengua dibujados inline, uno por grupo de fonema
 var SVG_BOCA = {
-  // Boca neutra abierta
-  abierta: '<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="40" cy="40" rx="32" ry="28" fill="#1a0808" stroke="#e63946" stroke-width="2.5"/><path d="M16 40 Q40 58 64 40" fill="#c0392b" stroke="none"/><ellipse cx="40" cy="32" rx="22" ry="8" fill="#f5d5d5" opacity=".9"/><rect x="24" y="53" width="32" height="6" rx="3" fill="#f5d5d5" opacity=".6"/><ellipse cx="40" cy="52" rx="14" ry="5" fill="#e07070" opacity=".7"/></svg>',
-  // Labios cerrados (para M, B, P)
-  cerrada: '<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="40" cy="40" rx="32" ry="28" fill="#1a0808" stroke="#e63946" stroke-width="2.5"/><path d="M14 40 Q40 34 66 40 Q40 48 14 40Z" fill="#c0392b"/><path d="M14 40 Q40 34 66 40" stroke="#f5d5d5" stroke-width="2.5" fill="none"/></svg>',
-  // Labios entreabiertos, lengua arriba (para L, N)
-  lengua_arriba: '<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="40" cy="40" rx="32" ry="28" fill="#1a0808" stroke="#e63946" stroke-width="2.5"/><path d="M18 42 Q40 56 62 42" fill="#c0392b"/><ellipse cx="40" cy="32" rx="20" ry="7" fill="#f5d5d5" opacity=".9"/><rect x="27" y="50" width="26" height="5" rx="2.5" fill="#f5d5d5" opacity=".6"/><path d="M32 44 Q40 35 48 44" fill="#e88080" stroke="#c0392b" stroke-width="1.5"/><circle cx="40" cy="36" r="4" fill="#e88080" opacity=".9"/><line x1="40" y1="32" x2="40" y2="22" stroke="#e88080" stroke-width="2.5" stroke-linecap="round"/></svg>',
-  // Lengua entre dientes (para T, D)
-  lengua_dientes: '<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="40" cy="40" rx="32" ry="28" fill="#1a0808" stroke="#e63946" stroke-width="2.5"/><path d="M18 42 Q40 55 62 42" fill="#c0392b"/><ellipse cx="40" cy="32" rx="20" ry="7" fill="#f5d5d5" opacity=".9"/><rect x="27" y="50" width="26" height="5" rx="2.5" fill="#f5d5d5" opacity=".6"/><ellipse cx="40" cy="48" rx="10" ry="5" fill="#e88080" opacity=".95"/><path d="M30 48 Q40 53 50 48" fill="#e88080"/></svg>',
-  // Boca con flujo de aire (para S, F)
-  soplando: '<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="40" cy="42" rx="32" ry="26" fill="#1a0808" stroke="#e63946" stroke-width="2.5"/><path d="M20 44 Q40 54 60 44" fill="#c0392b"/><ellipse cx="40" cy="34" rx="18" ry="6" fill="#f5d5d5" opacity=".9"/><rect x="28" y="50" width="24" height="4" rx="2" fill="#f5d5d5" opacity=".6"/><ellipse cx="40" cy="46" rx="7" ry="3.5" fill="#e88080" opacity=".8"/><path d="M52 38 Q60 33 68 35" stroke="#06d6a0" stroke-width="2" stroke-linecap="round" fill="none" opacity=".8"/><path d="M54 43 Q63 40 70 42" stroke="#06d6a0" stroke-width="2" stroke-linecap="round" fill="none" opacity=".6"/><path d="M53 48 Q61 47 68 49" stroke="#06d6a0" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".5"/></svg>',
-  // Nariz activa (para N, M)
-  nasal: '<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="40" cy="44" rx="32" ry="26" fill="#1a0808" stroke="#e63946" stroke-width="2.5"/><path d="M14 44 Q40 38 66 44 Q40 52 14 44Z" fill="#c0392b"/><path d="M14 44 Q40 38 66 44" stroke="#f5d5d5" stroke-width="2" fill="none"/><ellipse cx="30" cy="28" rx="6" ry="7" fill="none" stroke="#f4d35e" stroke-width="2"/><ellipse cx="50" cy="28" rx="6" ry="7" fill="none" stroke="#f4d35e" stroke-width="2"/><path d="M25 22 Q30 18 35 22" stroke="#06d6a0" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".8"/><path d="M45 22 Q50 18 55 22" stroke="#06d6a0" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".8"/></svg>',
-  // Vocal A (boca muy abierta)
-  vocal_a: '<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="40" cy="40" rx="32" ry="28" fill="#1a0808" stroke="#e63946" stroke-width="2.5"/><ellipse cx="40" cy="50" rx="22" ry="16" fill="#c0392b"/><ellipse cx="40" cy="32" rx="20" ry="7" fill="#f5d5d5" opacity=".9"/><rect x="26" y="54" width="28" height="6" rx="3" fill="#f5d5d5" opacity=".6"/><ellipse cx="40" cy="50" rx="12" ry="8" fill="#e07070" opacity=".8"/></svg>',
-  // Vocal E (boca estirada)
-  vocal_e: '<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="40" cy="40" rx="32" ry="28" fill="#1a0808" stroke="#e63946" stroke-width="2.5"/><path d="M14 40 Q40 52 66 40 Q40 48 14 40Z" fill="#c0392b"/><ellipse cx="40" cy="32" rx="24" ry="6" fill="#f5d5d5" opacity=".9"/><rect x="22" y="48" width="36" height="5" rx="2.5" fill="#f5d5d5" opacity=".6"/><ellipse cx="40" cy="44" rx="18" ry="4" fill="#e07070" opacity=".7"/></svg>',
-  // Vocal I (boca estirada fina)
-  vocal_i: '<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="40" cy="40" rx="32" ry="28" fill="#1a0808" stroke="#e63946" stroke-width="2.5"/><path d="M12 40 Q40 48 68 40 Q40 44 12 40Z" fill="#c0392b"/><ellipse cx="40" cy="33" rx="26" ry="5" fill="#f5d5d5" opacity=".9"/><rect x="20" y="46" width="40" height="4" rx="2" fill="#f5d5d5" opacity=".6"/><ellipse cx="40" cy="43" rx="20" ry="3" fill="#e07070" opacity=".7"/></svg>',
-  // Vocal O (boca redonda)
-  vocal_o: '<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="40" cy="40" rx="32" ry="28" fill="#1a0808" stroke="#e63946" stroke-width="2.5"/><ellipse cx="40" cy="44" rx="14" ry="16" fill="#c0392b"/><ellipse cx="40" cy="30" rx="16" ry="5.5" fill="#f5d5d5" opacity=".9"/><ellipse cx="40" cy="56" rx="16" ry="5.5" fill="#f5d5d5" opacity=".6"/><ellipse cx="40" cy="44" rx="8" ry="10" fill="#e07070" opacity=".8"/></svg>',
-  // Vocal U (boca muy redonda y pequeña)
-  vocal_u: '<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="40" cy="40" rx="32" ry="28" fill="#1a0808" stroke="#e63946" stroke-width="2.5"/><ellipse cx="40" cy="44" rx="9" ry="11" fill="#c0392b"/><ellipse cx="40" cy="30" rx="12" ry="5" fill="#f5d5d5" opacity=".9"/><ellipse cx="40" cy="56" rx="12" ry="5" fill="#f5d5d5" opacity=".6"/><ellipse cx="40" cy="44" rx="5" ry="7" fill="#e07070" opacity=".8"/></svg>',
-};
+  vocal_a: '<svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg"><path d="M15 32 Q40 18 60 20 Q80 18 105 32" stroke="#d63031" stroke-width="12" stroke-linecap="round" fill="none"/><path d="M15 62 Q40 80 60 82 Q80 80 105 62" stroke="#d63031" stroke-width="12" stroke-linecap="round" fill="none"/><path d="M18 35 Q60 22 102 35 Q102 64 60 80 Q18 64 18 35Z" fill="#5c0a0a"/><ellipse cx="60" cy="70" rx="30" ry="9" fill="#e17055"/><ellipse cx="60" cy="67" rx="22" ry="6" fill="#f0908a"/><ellipse cx="60" cy="35" rx="32" ry="7" fill="white" opacity=".95"/><line x1="45" y1="29" x2="45" y2="41" stroke="#ddd" stroke-width="1.2"/><line x1="60" y1="28" x2="60" y2="42" stroke="#ddd" stroke-width="1.2"/><line x1="75" y1="29" x2="75" y2="41" stroke="#ddd" stroke-width="1.2"/><ellipse cx="60" cy="63" rx="28" ry="6" fill="white" opacity=".75"/><text x="30" y="97" font-size="11" fill="#e63946" font-family="sans-serif" font-weight="bold">VOCAL A</text></svg>',
+  vocal_e: '<svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg"><path d="M10 38 Q35 24 60 26 Q85 24 110 38" stroke="#d63031" stroke-width="11" stroke-linecap="round" fill="none"/><path d="M10 52 Q35 64 60 65 Q85 64 110 52" stroke="#d63031" stroke-width="11" stroke-linecap="round" fill="none"/><path d="M12 40 Q60 28 108 40 Q108 54 60 64 Q12 54 12 40Z" fill="#5c0a0a"/><ellipse cx="60" cy="40" rx="36" ry="6" fill="white" opacity=".95"/><line x1="42" y1="34" x2="42" y2="46" stroke="#ddd" stroke-width="1.2"/><line x1="55" y1="34" x2="55" y2="46" stroke="#ddd" stroke-width="1.2"/><line x1="68" y1="34" x2="68" y2="46" stroke="#ddd" stroke-width="1.2"/><line x1="81" y1="34" x2="81" y2="46" stroke="#ddd" stroke-width="1.2"/><ellipse cx="60" cy="54" rx="30" ry="5.5" fill="white" opacity=".75"/><ellipse cx="60" cy="55" rx="22" ry="5" fill="#e17055"/><text x="30" y="97" font-size="11" fill="#e63946" font-family="sans-serif" font-weight="bold">VOCAL E</text></svg>',
+  vocal_i: '<svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg"><path d="M8 42 Q35 30 60 32 Q85 30 112 42" stroke="#d63031" stroke-width="10" stroke-linecap="round" fill="none"/><path d="M8 52 Q35 62 60 63 Q85 62 112 52" stroke="#d63031" stroke-width="10" stroke-linecap="round" fill="none"/><path d="M10 44 Q60 33 110 44 Q110 54 60 62 Q10 54 10 44Z" fill="#5c0a0a"/><ellipse cx="60" cy="44" rx="38" ry="5" fill="white" opacity=".95"/><line x1="40" y1="39" x2="40" y2="49" stroke="#ddd" stroke-width="1.2"/><line x1="55" y1="39" x2="55" y2="49" stroke="#ddd" stroke-width="1.2"/><line x1="70" y1="39" x2="70" y2="49" stroke="#ddd" stroke-width="1.2"/><line x1="85" y1="39" x2="85" y2="49" stroke="#ddd" stroke-width="1.2"/><ellipse cx="60" cy="54" rx="33" ry="4.5" fill="white" opacity=".7"/><text x="35" y="97" font-size="11" fill="#e63946" font-family="sans-serif" font-weight="bold">VOCAL I</text></svg>',
+  vocal_o: '<svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg"><path d="M30 32 Q48 18 60 18 Q72 18 90 32" stroke="#d63031" stroke-width="12" stroke-linecap="round" fill="none"/><path d="M30 65 Q48 80 60 80 Q72 80 90 65" stroke="#d63031" stroke-width="12" stroke-linecap="round" fill="none"/><path d="M20 42 Q22 25 60 20 Q98 25 100 42 Q100 72 60 80 Q20 72 20 42Z" fill="#5c0a0a"/><ellipse cx="60" cy="35" rx="22" ry="6" fill="white" opacity=".9"/><ellipse cx="60" cy="68" rx="20" ry="5.5" fill="white" opacity=".75"/><ellipse cx="60" cy="62" rx="14" ry="8" fill="#e17055"/><ellipse cx="60" cy="60" rx="10" ry="5" fill="#f0908a"/><text x="30" y="97" font-size="11" fill="#e63946" font-family="sans-serif" font-weight="bold">VOCAL O</text></svg>',
+  vocal_u: '<svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg"><path d="M38 36 Q52 22 60 22 Q68 22 82 36" stroke="#d63031" stroke-width="12" stroke-linecap="round" fill="none"/><path d="M38 60 Q52 76 60 76 Q68 76 82 60" stroke="#d63031" stroke-width="12" stroke-linecap="round" fill="none"/><ellipse cx="60" cy="48" rx="18" ry="18" fill="#5c0a0a"/><ellipse cx="60" cy="38" rx="12" ry="5" fill="white" opacity=".85"/><ellipse cx="60" cy="60" rx="11" ry="4.5" fill="white" opacity=".7"/><ellipse cx="60" cy="52" rx="8" ry="8" fill="#e17055"/><ellipse cx="60" cy="50" rx="5" ry="5" fill="#f0908a"/><text x="30" y="97" font-size="11" fill="#e63946" font-family="sans-serif" font-weight="bold">VOCAL U</text></svg>',
+  cerrada: '<svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg"><path d="M15 40 Q40 28 60 30 Q80 28 105 40" stroke="#d63031" stroke-width="11" stroke-linecap="round" fill="none"/><path d="M15 54 Q40 66 60 66 Q80 66 105 54" stroke="#d63031" stroke-width="11" stroke-linecap="round" fill="none"/><path d="M15 47 Q60 50 105 47" stroke="#8c0000" stroke-width="3" fill="none"/><path d="M60 22 L60 30" stroke="#f4d35e" stroke-width="2.5" stroke-linecap="round"/><polygon points="57,30 60,36 63,30" fill="#f4d35e"/><path d="M60 72 L60 64" stroke="#f4d35e" stroke-width="2.5" stroke-linecap="round"/><polygon points="57,64 60,58 63,64" fill="#f4d35e"/><text x="10" y="97" font-size="9.5" fill="#f4d35e" font-family="sans-serif" font-weight="bold">LABIOS CERRADOS</text></svg>',
+  lengua_dientes: '<svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg"><path d="M18 33 Q60 18 102 33" stroke="#d63031" stroke-width="11" stroke-linecap="round" fill="none"/><path d="M18 56 Q60 72 102 56" stroke="#d63031" stroke-width="11" stroke-linecap="round" fill="none"/><path d="M20 36 Q60 22 100 36 Q100 58 60 70 Q20 58 20 36Z" fill="#5c0a0a"/><ellipse cx="60" cy="36" rx="30" ry="6" fill="white" opacity=".95"/><line x1="44" y1="30" x2="44" y2="42" stroke="#ddd" stroke-width="1.2"/><line x1="58" y1="30" x2="58" y2="42" stroke="#ddd" stroke-width="1.2"/><line x1="72" y1="30" x2="72" y2="42" stroke="#ddd" stroke-width="1.2"/><ellipse cx="60" cy="57" rx="26" ry="5.5" fill="white" opacity=".7"/><path d="M38 56 Q50 62 60 56 Q70 62 82 56 Q80 48 70 44 Q60 43 50 44 Q40 48 38 56Z" fill="#e17055"/><ellipse cx="60" cy="52" rx="18" ry="7" fill="#f0908a"/><circle cx="60" cy="43" r="4" fill="#f4d35e"/><text x="5" y="97" font-size="9" fill="#f4d35e" font-family="sans-serif" font-weight="bold">LENGUA DETRAS DIENTES</text></svg>',
+  lengua_arriba: '<svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg"><path d="M18 33 Q60 18 102 33" stroke="#d63031" stroke-width="11" stroke-linecap="round" fill="none"/><path d="M18 57 Q60 73 102 57" stroke="#d63031" stroke-width="11" stroke-linecap="round" fill="none"/><path d="M20 36 Q60 22 100 36 Q100 59 60 72 Q20 59 20 36Z" fill="#5c0a0a"/><ellipse cx="60" cy="36" rx="29" ry="6" fill="white" opacity=".95"/><line x1="44" y1="30" x2="44" y2="42" stroke="#ddd" stroke-width="1.2"/><line x1="60" y1="30" x2="60" y2="42" stroke="#ddd" stroke-width="1.2"/><line x1="76" y1="30" x2="76" y2="42" stroke="#ddd" stroke-width="1.2"/><ellipse cx="60" cy="58" rx="25" ry="5" fill="white" opacity=".7"/><path d="M34 60 Q45 66 55 52 Q60 42 65 40 Q60 38 55 40 Q48 50 40 60 Q37 64 34 60Z" fill="#e17055"/><circle cx="63" cy="40" r="4.5" fill="#f4d35e"/><path d="M63 38 L63 28" stroke="#f4d35e" stroke-width="2" stroke-linecap="round"/><polygon points="60,30 63,24 66,30" fill="#f4d35e"/><text x="8" y="97" font-size="9" fill="#f4d35e" font-family="sans-serif" font-weight="bold">LENGUA TOCA PALADAR</text></svg>',
+  soplando: '<svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg"><path d="M18 38 Q60 24 102 38" stroke="#d63031" stroke-width="10" stroke-linecap="round" fill="none"/><path d="M18 52 Q60 66 102 52" stroke="#d63031" stroke-width="10" stroke-linecap="round" fill="none"/><path d="M20 40 Q60 27 100 40 Q100 54 60 64 Q20 54 20 40Z" fill="#5c0a0a"/><ellipse cx="60" cy="40" rx="30" ry="5.5" fill="white" opacity=".95"/><line x1="44" y1="35" x2="44" y2="46" stroke="#ddd" stroke-width="1.2"/><line x1="58" y1="34" x2="58" y2="46" stroke="#ddd" stroke-width="1.2"/><line x1="72" y1="35" x2="72" y2="46" stroke="#ddd" stroke-width="1.2"/><ellipse cx="60" cy="53" rx="26" ry="5" fill="white" opacity=".7"/><ellipse cx="60" cy="58" rx="20" ry="5" fill="#e17055"/><path d="M104 36 Q112 33 119 35" stroke="#06d6a0" stroke-width="2.2" stroke-linecap="round" fill="none"/><path d="M104 43 Q113 41 119 43" stroke="#06d6a0" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M104 50 Q112 49 119 51" stroke="#06d6a0" stroke-width="1.8" stroke-linecap="round" fill="none"/><text x="5" y="97" font-size="9" fill="#06d6a0" font-family="sans-serif" font-weight="bold">DIENTES CASI JUNTOS</text></svg>',
+  nasal: '<svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg"><path d="M15 42 Q40 30 60 32 Q80 30 105 42" stroke="#d63031" stroke-width="11" stroke-linecap="round" fill="none"/><path d="M15 54 Q40 66 60 66 Q80 66 105 54" stroke="#d63031" stroke-width="11" stroke-linecap="round" fill="none"/><path d="M15 48 Q60 50 105 48" stroke="#8c0000" stroke-width="3" fill="none"/><ellipse cx="45" cy="25" rx="9" ry="11" fill="none" stroke="#f4d35e" stroke-width="2"/><ellipse cx="75" cy="25" rx="9" ry="11" fill="none" stroke="#f4d35e" stroke-width="2"/><path d="M40 14 Q45 8 50 14" stroke="#06d6a0" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M70 14 Q75 8 80 14" stroke="#06d6a0" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M20 58 Q25 55 30 58 Q35 61 40 58" stroke="#f77f00" stroke-width="1.8" fill="none"/><path d="M80 58 Q85 55 90 58 Q95 61 100 58" stroke="#f77f00" stroke-width="1.8" fill="none"/><text x="5" y="97" font-size="9" fill="#06d6a0" font-family="sans-serif" font-weight="bold">AIRE POR LA NARIZ</text></svg>',
+  abierta: '<svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg"><path d="M15 32 Q40 18 60 20 Q80 18 105 32" stroke="#d63031" stroke-width="12" stroke-linecap="round" fill="none"/><path d="M15 62 Q40 80 60 82 Q80 80 105 62" stroke="#d63031" stroke-width="12" stroke-linecap="round" fill="none"/><path d="M18 35 Q60 22 102 35 Q102 64 60 80 Q18 64 18 35Z" fill="#5c0a0a"/><ellipse cx="60" cy="70" rx="30" ry="9" fill="#e17055"/><ellipse cx="60" cy="67" rx="22" ry="6" fill="#f0908a"/><ellipse cx="60" cy="35" rx="32" ry="7" fill="white" opacity=".95"/><line x1="45" y1="29" x2="45" y2="41" stroke="#ddd" stroke-width="1.2"/><line x1="60" y1="28" x2="60" y2="42" stroke="#ddd" stroke-width="1.2"/><line x1="75" y1="29" x2="75" y2="41" stroke="#ddd" stroke-width="1.2"/><ellipse cx="60" cy="63" rx="28" ry="6" fill="white" opacity=".75"/></svg>',
+}
 
 // Mapa fonema -> guía. Clave = primera(s) letra(s) del fonema
 var GUIAS_FON = {
@@ -967,21 +1123,115 @@ var GUIAS_FON = {
   'BOTA': {svg:'cerrada', tit:'BOTA', paso:'BO: labios suaves y boca redonda. TA: lengua detras de dientes.', truco:'Labios suaves... lengua: BO-TA'},
 };
 
+// ===== SISTEMA DE IMAGENES POR LETRA =====
+// Cada sílaba se descompone en sus letras individuales
+// Cada letra tiene su propia imagen: A.jpg, E.jpg, P.jpg, T.jpg, etc.
+
+var IMG_BASE = './imagenes/';
+var IMG_EXT  = '.jpg';
+
+// Descompone una sílaba en sus letras individuales para mostrar imagen por letra
+// PA → ['P','A']   A → ['A']   PATO → ['P','A','T','O']
+// Reglas: consonante(s) + vocal
+var DESCOMP = {
+  // Vocales solas
+  'A':['A'],'E':['E'],'I':['I'],'O':['O'],'U':['U'],
+  // Serie PA
+  'PA':['P','A'],'PE':['P','E'],'PI':['P','I'],'PO':['P','O'],'PU':['P','U'],
+  // Serie TA
+  'TA':['T','A'],'TE':['T','E'],'TI':['T','I'],'TO':['T','O'],'TU':['T','U'],
+  // Serie MA
+  'MA':['M','A'],'ME':['M','E'],'MI':['M','I'],'MO':['M','O'],'MU':['M','U'],
+  // Serie SA
+  'SA':['S','A'],'SE':['S','E'],'SI':['S','I'],'SO':['S','O'],'SU':['S','U'],
+  // Serie LA
+  'LA':['L','A'],'LE':['L','E'],'LI':['L','I'],'LO':['L','O'],'LU':['L','U'],
+  // Serie NA
+  'NA':['N','A'],'NE':['N','E'],'NI':['N','I'],'NO':['N','O'],'NU':['N','U'],
+  // Serie BA
+  'BA':['B','A'],'BE':['B','E'],'BI':['B','I'],'BO':['B','O'],'BU':['B','U'],
+  // Combinaciones — dos sílabas, se parte en dos filas de 2
+  'PAPA':['P','A','P','A'],
+  'PATA':['P','A','T','A'],
+  'PAKA':['P','A','K','A'],
+  'TATA':['T','A','T','A'],
+  'BEBA':['B','E','B','A'],
+  // Palabras — dos sílabas, se parte en dos filas de 2
+  'PATO':['P','A','T','O'],
+  'TAPA':['T','A','P','A'],
+  'POLO':['P','O','L','O'],
+  'MESA':['M','E','S','A'],
+  'BOTA':['B','O','T','A'],
+};
+
+// Construye una celda: imagen si existe, placeholder si no
+function _celda(letra){
+  var url = IMG_BASE + letra + IMG_EXT;
+  var cell = document.createElement('div');
+  cell.className = 'fon-letra-cell';
+  // Etiqueta con la letra
+  var lbl = document.createElement('div');
+  lbl.className = 'fon-letra-lbl';
+  lbl.textContent = letra;
+  cell.appendChild(lbl);
+  // Intentar cargar imagen
+  var img = document.createElement('img');
+  img.className = 'fon-letra-img';
+  img.alt = letra;
+  img.onload = function(){ /* imagen cargada OK */ };
+  img.onerror = function(){
+    // No existe la imagen → mostrar placeholder
+    var ph = document.createElement('div');
+    ph.className = 'fon-letra-ph';
+    ph.textContent = letra + '\nsin imagen';
+    cell.replaceChild(ph, img);
+  };
+  img.src = url;
+  cell.appendChild(img);
+  return cell;
+}
+
 function renderGuia(silaba){
-  var guia=GUIAS_FON[silaba.toUpperCase()];
-  var wrap=document.getElementById('fon-guia');
-  if(!wrap)return;
-  if(!guia){wrap.className='fon-guia-wrap vacio';return;}
-  var svgKey=guia.svg;
-  var svgHtml=SVG_BOCA[svgKey]||SVG_BOCA['abierta'];
-  wrap.className='fon-guia-wrap';
-  wrap.innerHTML=
-    '<div class="fon-guia-svg">'+svgHtml+'</div>'+
-    '<div class="fon-guia-txt">'+
-      '<div class="fon-g-tit">'+guia.tit+'</div>'+
-      '<div class="fon-g-paso">'+guia.paso+'</div>'+
-      '<div class="fon-g-truco">💡 '+guia.truco+'</div>'+
-    '</div>';
+  var sil   = silaba.toUpperCase();
+  var guia  = GUIAS_FON[sil];
+  var letras= DESCOMP[sil] || sil.split('');
+
+  var grid = document.getElementById('fon-letras-grid');
+  var tip  = document.getElementById('fon-tip-box');
+  if(!grid) return;
+
+  grid.innerHTML = '';
+
+  if(letras.length <= 2){
+    // Una sola fila (vocales o sílabas simples: A, PA, TA...)
+    var fila = document.createElement('div');
+    fila.className = 'fon-fila';
+    letras.forEach(function(l){ fila.appendChild(_celda(l)); });
+    grid.appendChild(fila);
+  } else {
+    // Dos sílabas (4 letras) → dos filas de 2
+    // Fila 1: primera sílaba
+    var f1 = document.createElement('div');
+    f1.className = 'fon-fila';
+    letras.slice(0,2).forEach(function(l){ f1.appendChild(_celda(l)); });
+    grid.appendChild(f1);
+    // Fila 2: segunda sílaba
+    var f2 = document.createElement('div');
+    f2.className = 'fon-fila';
+    letras.slice(2).forEach(function(l){ f2.appendChild(_celda(l)); });
+    grid.appendChild(f2);
+  }
+
+  // Tip de articulación
+  if(guia){
+    tip.className = 'fon-tip-box visible';
+    tip.innerHTML =
+      '<div class="ftb-tit">' + guia.tit + '</div>' +
+      '<div class="ftb-paso">' + guia.paso + '</div>' +
+      '<div class="ftb-truco">💡 ' + guia.truco + '</div>';
+  } else {
+    tip.className = 'fon-tip-box';
+  }
 }
 var fonMute=false;
 function toggleMute(){
@@ -1189,118 +1439,246 @@ var MITEMS=[
   {em:'🦇',pal:'MURCIÉLAG.'},{em:'🌸',pal:'FLOR'},{em:'🚀',pal:'COHETE'},{em:'🎲',pal:'DADO'},
   {em:'🍕',pal:'PIZZA'},{em:'🌊',pal:'OLA'},
 ];
-var mCards=[],mFlip=[],mMatch=[],mBlk=false,mModo='ig',mPares=2;
+var mCards=[],mFlip=[],mMatch=[],mBlk=false,mModo='ig',mGrid='2x2';
 function setMemModo(m,btn){mModo=m;document.querySelectorAll('.mmb').forEach(function(b){b.classList.remove('on');});btn.classList.add('on');
-  initMem(mPares,document.querySelector('.lv.on'));}
-function initMem(pares,btn){
-  mPares=pares;document.querySelectorAll('.lv').forEach(function(b){b.classList.remove('on');});
+  initMem(mGrid,document.querySelector('.lv.on'));}
+
+function initMem(grid,btn){
+  mGrid=grid;
+  document.querySelectorAll('.lv').forEach(function(b){b.classList.remove('on');});
   if(btn)btn.classList.add('on');
   clearInterval(S.mIV);S.mMov=0;S.mPar=0;S.mSeg=0;
-  document.getElementById('mm-m').textContent=0;document.getElementById('mm-p').textContent=0;document.getElementById('mm-t').textContent='0s';
+  document.getElementById('mm-m').textContent=0;
+  document.getElementById('mm-p').textContent=0;
+  document.getElementById('mm-t').textContent='0s';
   setRes('mem-res','','');
-  var items=MITEMS.slice(0,pares);var deck;
+
+  // Calcular número de pares según la cuadrícula
+  // 2x2=4 cartas=2 pares | 3x3=9 cartas=4 pares+carta Claudia | 4x4=16=8 pares | 5x5=25=12 pares+Claudia | 6x6=36=18 pares
+  var cfg={
+    '2x2':{cols:2,pares:2,claudia:false},
+    '3x3':{cols:3,pares:4,claudia:true},
+    '4x4':{cols:4,pares:8,claudia:false},
+    '5x5':{cols:5,pares:12,claudia:true},
+    '6x6':{cols:6,pares:18,claudia:false},
+  };
+  var c=cfg[grid]||cfg['2x2'];
+  var cols=c.cols, pares=c.pares, conClaudia=c.claudia;
+
+  var items=MITEMS.slice(0,pares);
+  var deck;
   if(mModo==='ig'){
-    deck=items.map(function(it){return {k:it.em,tipo:'em',val:it.em};})
-      .concat(items.map(function(it){return {k:it.em,tipo:'em',val:it.em};}))
-      .sort(function(){return Math.random()-.5;});
+    deck=items.map(function(it){return {k:it.em,tipo:'em',val:it.em,especial:false};})
+      .concat(items.map(function(it){return {k:it.em,tipo:'em',val:it.em,especial:false};}));
   } else {
-    var m1=items.map(function(it,i){return {k:it.em,tipo:'em',val:it.em,par:i};});
-    var m2=items.map(function(it,i){return {k:it.em,tipo:'pal',val:it.pal,em:it.em,par:i};});
-    deck=m1.concat(m2).sort(function(){return Math.random()-.5;});
+    var m1=items.map(function(it,i){return {k:it.em,tipo:'em',val:it.em,par:i,especial:false};});
+    var m2=items.map(function(it,i){return {k:it.em,tipo:'pal',val:it.pal,em:it.em,par:i,especial:false};});
+    deck=m1.concat(m2);
   }
+
+  // Añadir carta especial CLAUDIA si la cuadrícula es impar
+  if(conClaudia){
+    deck.push({k:'CLAUDIA',tipo:'claudia',val:'CLAUDIA',especial:true});
+  }
+
+  deck=deck.sort(function(){return Math.random()-.5;});
   mCards=deck;mFlip=[];mMatch=[];mBlk=false;
-  var cols=pares<=2?2:pares<=4?4:pares<=6?4:pares<=9?6:6;
-  var grid=document.getElementById('mg');grid.style.gridTemplateColumns='repeat('+cols+',auto)';
-  var h='';deck.forEach(function(card,i){
+
+  var g=document.getElementById('mg');
+  g.style.gridTemplateColumns='repeat('+cols+',auto)';
+
+  // Calcular tamaño de carta según el espacio REAL disponible en pantalla
+  // Medimos el ancho del contenedor de la pestaña
+  var panel = document.getElementById('tp-mem');
+  var panelW = panel ? panel.offsetWidth : window.innerWidth;
+  // Descontamos el padding del panel (18px cada lado) y los gaps entre cartas
+  var GAP = 7; // gap en px entre cartas (igual que CSS #mg gap:7px)
+  var PADDING = 36; // padding total del panel
+  var espacioUtil = panelW - PADDING - (GAP * (cols - 1));
+  var sz = Math.floor(espacioUtil / cols);
+  // Límites: mínimo 52px para que se vea algo, máximo 160px para no quedar enorme en 2x2
+  sz = Math.max(52, Math.min(sz, 160));
+
+  // Escalar fuente del emoji según tamaño de carta
+  var emSize = Math.max(1.2, Math.min(sz * 0.42 / 16, 3.5));   // en rem
+  var palSize = Math.max(0.6, Math.min(sz * 0.12 / 16, 1.1));  // en rem
+  var claudiaSize = Math.max(0.7, Math.min(sz * 0.13 / 16, 1.2));
+
+  var h='';
+  deck.forEach(function(card,i){
     var frontal;
-    if(mModo==='ig'){
-      frontal='<div class="mem-em">'+card.val+'</div>';
+    if(card.especial){
+      frontal='<div style="font-size:'+claudiaSize+'rem;font-weight:900;color:var(--am);text-align:center;padding:4px;line-height:1.4">👧<br>CLAUDIA</div>';
+    } else if(mModo==='ig'){
+      frontal='<div class="mem-em" style="font-size:'+emSize+'rem">'+card.val+'</div>';
     } else if(card.tipo==='em'){
-      // Carta de imagen: solo el emoji, grande
-      frontal='<div class="mem-em">'+card.val+'</div>';
+      frontal='<div class="mem-em" style="font-size:'+emSize+'rem">'+card.val+'</div>';
     } else {
-      // Carta de palabra: solo el texto, sin emoji
-      frontal='<div class="mem-pal" style="font-size:.85rem;padding:6px 4px;line-height:1.3;color:var(--am);font-weight:900;text-align:center">'+card.val+'</div>';
+      frontal='<div class="mem-pal" style="font-size:'+palSize+'rem;padding:4px;line-height:1.3;color:var(--am);font-weight:900;text-align:center">'+card.val+'</div>';
     }
-    h+='<div class="mc" id="mc'+i+'" onclick="flipC('+i+')">'
-      +'<div class="mci"><div class="mcf">'+frontal+'</div><div class="mcb">?</div></div></div>';
+    var esClaudia=card.especial?' data-claudia="1"':'';
+    h+='<div class="mc" id="mc'+i+'" style="width:'+sz+'px;height:'+sz+'px"'+esClaudia+' onclick="flipC('+i+')">'
+      +'<div class="mci"><div class="mcf">'+frontal+'</div><div class="mcb" style="font-size:'+Math.max(1,sz*0.08)+'rem">?</div></div></div>';
   });
-  grid.innerHTML=h;
+  g.innerHTML=h;
+
+  // Auto-descubrir carta Claudia inmediatamente
+  if(conClaudia){
+    setTimeout(function(){
+      deck.forEach(function(card,i){
+        if(card.especial){
+          var el=document.getElementById('mc'+i);
+          if(el){el.classList.add('flip','mtch');el.style.cursor='default';el.onclick=null;}
+          mMatch.push(i);
+        }
+      });
+    },300);
+  }
+
   S.mIV=setInterval(function(){S.mSeg++;document.getElementById('mm-t').textContent=S.mSeg+'s';},1000);
 }
+
 function flipC(i){
   if(mBlk||mFlip.indexOf(i)>=0||mMatch.indexOf(i)>=0)return;
+  if(mCards[i]&&mCards[i].especial)return; // no voltear carta Claudia
   sonar('flip');document.getElementById('mc'+i).classList.add('flip');mFlip.push(i);
   if(mFlip.length===2){S.mMov++;document.getElementById('mm-m').textContent=S.mMov;mBlk=true;
     setTimeout(function(){var a=mFlip[0],b=mFlip[1],ok=false;
       if(mModo==='ig'){ok=(mCards[a].k===mCards[b].k);}
       else{ok=(mCards[a].par===mCards[b].par&&mCards[a].tipo!==mCards[b].tipo);}
-      if(ok){document.getElementById('mc'+a).classList.add('mtch');document.getElementById('mc'+b).classList.add('mtch');
-        mMatch.push(a);mMatch.push(b);S.mPar++;document.getElementById('mm-p').textContent=S.mPar;addPts(15);sonar('match');
+      if(ok){
+        document.getElementById('mc'+a).classList.add('mtch');
+        document.getElementById('mc'+b).classList.add('mtch');
+        mMatch.push(a);mMatch.push(b);S.mPar++;
+        document.getElementById('mm-p').textContent=S.mPar;
+        addPts(15);sonar('match');
         if(mMatch.length===mCards.length){clearInterval(S.mIV);
           setRes('mem-res','ok','🎉 ¡GANASTE! '+S.mSeg+'s · '+S.mMov+' movs. +30 energía');
           addPts(30);sonar('win');desblq('mem_ok');notif('🃏','¡Memory completado!','¡Memoria de superhéroe!');
         }
-      } else {document.getElementById('mc'+a).classList.remove('flip');document.getElementById('mc'+b).classList.remove('flip');sonar('err');resetRacha();}
-      mFlip=[];mBlk=false;},960);
+      } else {
+        document.getElementById('mc'+a).classList.remove('flip');
+        document.getElementById('mc'+b).classList.remove('flip');
+        sonar('err');resetRacha();
+      }
+      mFlip=[];mBlk=false;
+    },960);
   }
 }
 
-// RITMO — jugadora pulsa cualquiera de los iluminados, en cualquier orden
-var RN=5,rPat=[],rMrc=[],rRep=false;
+// RITMO — tras mostrar el patrón los botones quedan activos directamente
+var RN=5,rPat=[],rMrc=[],rFase='idle'; // fases: idle | showing | jugando | fin
 function newRit(){
   var len=2+Math.floor(Math.random()*3);
-  var all=[];for(var i=0;i<RN;i++)all.push(i);all.sort(function(){return Math.random()-.5;});
+  var all=[];for(var i=0;i<RN;i++)all.push(i);
+  all.sort(function(){return Math.random()-.5;});
   rPat=all.slice(0,len).sort(function(a,b){return a-b;});
-  rMrc=[];rRep=false;
-  document.getElementById('rb-show').disabled=false;document.getElementById('rb-rep').disabled=true;
-  setRes('rit-res','','');document.getElementById('rst').textContent='';
-  document.getElementById('rit-instr').textContent='Pulsa "Mostrar ritmo" para ver el patrón';
+  rMrc=[];rFase='idle';
+  document.getElementById('rb-show').disabled=false;
+  document.getElementById('rb-rep').disabled=true;
+  setRes('rit-res','','');
+  document.getElementById('rst').textContent='';
+  document.getElementById('rit-instr').textContent='Pulsa "Mostrar ritmo" para empezar';
   rBeats('idle');
 }
 function rBeats(mode){
   var h='';
   for(var i=0;i<RN;i++){
-    var enP=rPat.indexOf(i)>=0,mrc=rMrc.indexOf(i)>=0;
+    var enP=rPat.indexOf(i)>=0;
+    var mrc=rMrc.indexOf(i)>=0;
     var cls='beat ';
-    if(mode==='show'){cls+=enP?'on':'off';}
-    else if(mode==='rep'){
-      if(mrc&&enP)cls+='hit clk';
-      else if(mrc&&!enP)cls+='miss clk';
+    if(mode==='show'){
+      cls+=enP?'on':'off';
+    } else if(mode==='jugando'){
+      if(mrc&&enP) cls+='hit';
+      else if(mrc&&!enP) cls+='miss';
       else cls+='off clk';
-    } else cls+='off';
+    } else {
+      cls+='off';
+    }
+    // En modo jugando todos son clickables
+    var clickable=(mode==='jugando');
     var lbl=(mode==='show'&&enP)?'👏':String(i+1);
-    h+='<div class="'+cls+'" id="rb'+i+'"'+(mode==='rep'?' onclick="tapRit('+i+')"':'')+'>'+lbl+'</div>';
+    h+='<div class="'+cls+(clickable?' clk':'')+'" id="rb'+i+'"'
+      +(clickable?' onclick="tapRit('+i+')"':'')+'>'+lbl+'</div>';
   }
   document.getElementById('beats').innerHTML=h;
 }
 function showRit(){
+  if(rFase==='showing')return;
+  rFase='showing';
+  rMrc=[];
   document.getElementById('rb-show').disabled=true;
-  document.getElementById('rst').textContent='👀 ¡Fíjate qué botones se iluminan!';
+  document.getElementById('rb-rep').disabled=true;
+  document.getElementById('rst').textContent='👀 Mira bien qué botones se iluminan...';
+  setRes('rit-res','','');
   var paso=0;
   function next(){
     rBeats('idle');
     if(paso<rPat.length){
-      var idx=rPat[paso];var el=document.getElementById('rb'+idx);
+      var idx=rPat[paso];
+      var el=document.getElementById('rb'+idx);
       if(el){el.className='beat on';el.textContent='👏';pitido(440+idx*60);}
       paso++;setTimeout(next,700);
     } else {
-      setTimeout(function(){rBeats('idle');document.getElementById('rb-rep').disabled=false;
-        document.getElementById('rst').textContent='¡Ahora pulsa esos botones! 👆';},400);
+      // Terminó de mostrar → activar botones directamente
+      setTimeout(function(){
+        rFase='jugando';
+        rMrc=[];
+        rBeats('jugando');
+        document.getElementById('rb-rep').disabled=false;
+        document.getElementById('rst').textContent='¡Ahora pulsa los botones que se iluminaron! 👆';
+        document.getElementById('rit-instr').textContent='Pulsa los botones naranjas que viste';
+      },400);
     }
   }
   next();
 }
-function startRep(){rMrc=[];rRep=true;document.getElementById('rst').textContent='Pulsa los botones que se iluminaron 👆';rBeats('rep');}
+function repetirRitmo(){
+  // Solo vuelve a mostrar la animación, no reinicia el juego
+  if(rFase==='showing')return;
+  showRit();
+}
 function tapRit(i){
-  if(!rRep||rMrc.indexOf(i)>=0)return;rMrc.push(i);
-  if(rPat.indexOf(i)>=0)pitido(440+i*60);else sonar('err');
-  rBeats('rep');
-  var ac=rMrc.filter(function(x){return rPat.indexOf(x)>=0;});
-  var fa=rMrc.filter(function(x){return rPat.indexOf(x)<0;});
-  if(ac.length===rPat.length){rRep=false;
-    if(fa.length===0){setRes('rit-res','ok','🎵 ¡Ritmo perfecto! Sin fallos. +20 energía');addPts(20);sonar('win');desblq('rit_ok');notif('🎵','¡Ritmo perfecto!','¡Tienes el ritmo en la sangre!');}
-    else{setRes('rit-res','ok','👍 ¡Encontraste todos los botones! '+fa.length+' extra. +10 energía');addPts(10);sonar('ok');}
+  if(rFase!=='jugando')return;
+  if(rMrc.indexOf(i)>=0)return; // ya pulsado
+  var enPatron=rPat.indexOf(i)>=0;
+  rMrc.push(i);
+  if(enPatron){
+    pitido(440+i*60);
+    // Marcar como acertado visualmente
+    var el=document.getElementById('rb'+i);
+    if(el){el.className='beat hit';el.onclick=null;}
+    // ¿Ha acertado todos los del patrón?
+    var aciertos=rMrc.filter(function(x){return rPat.indexOf(x)>=0;});
+    if(aciertos.length===rPat.length){
+      rFase='fin';
+      document.getElementById('rst').textContent='';
+      setRes('rit-res','ok','🎵 ¡Ritmo perfecto! +20 energía');
+      addPts(20);sonar('win');desblq('rit_ok');
+      notif('🎵','¡Ritmo perfecto!','¡Tienes el ritmo en la sangre!');
+      document.getElementById('rb-show').disabled=false;
+    }
+  } else {
+    // Error — mostrar mensaje emergente
+    sonar('err');resetRacha();
+    var el=document.getElementById('rb'+i);
+    if(el){el.className='beat miss';}
+    // Mensaje emergente de error
+    var errDiv=document.createElement('div');
+    errDiv.style.cssText='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);'
+      +'background:rgba(230,57,70,.96);color:#fff;border-radius:18px;padding:22px 32px;'
+      +'text-align:center;font-family:Creepster,cursive;font-size:1.6rem;z-index:300;'
+      +'box-shadow:0 8px 40px rgba(0,0,0,.6);animation:popIn .3s ease';
+    errDiv.innerHTML='❌<br><span style="font-size:1.1rem;font-family:Nunito,sans-serif;font-weight:900">¡Inténtalo otra vez!</span>';
+    document.body.appendChild(errDiv);
+    setTimeout(function(){
+      errDiv.remove();
+      // Resetear para que pueda volver a intentarlo
+      rMrc=[];rFase='jugando';
+      rBeats('jugando');
+      document.getElementById('rst').textContent='¡Inténtalo otra vez! Pulsa los botones que se iluminaron 👆';
+    },1400);
   }
 }
 
